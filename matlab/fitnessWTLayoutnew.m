@@ -12,7 +12,7 @@ nTurbines=length(tpositions(:,1));
 if nTurbines>2000
     constraint=0;
 else
-    constraint=CheckConstraint(tpositions);
+    constraint=CheckConstraint(tpositions)
 end
 
 %constraint=1;

@@ -17,8 +17,8 @@ load FarmParameters
     yd=(yy1-yy2)';
     %create differential matrices--Kalyan 
     %changed it to 1, added transpose to this operation 
-    xlarge=repmat(xd,[],length(thetas(:,1)));
-    ylarge=repmat(yd,[],length(thetas(:,1)));
+    xlarge=repmat(xd,[length(thetas(:,1)) 1]);
+    ylarge=repmat(yd,[length(thetas(:,1)) 1]);
     
       
     %now create the beta function 
@@ -48,7 +48,7 @@ load FarmParameters
     % change the wind resource 
     %This was what was causing the error-Kalyan, February 2011
     %crep=repmat(c,1,length(tpositions(:,1)));
-    temp1=repmat(c,[],length(tpositions(:,1)));
+    temp1=repmat(c,[length(tpositions(:,1)) 1]);
     crep=reshape(temp1,prod(size(temp1)),1);
     crep=crep.*(1-TotalVdef);
     lp=1;
