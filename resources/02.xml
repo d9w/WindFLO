@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WindField><!--Wind scenario 2 used in evolution, new omegas-->
+   <Angles>
+      <angle c="8.5" k="2.0" omega="0.0426" theta="0"/>
+      <angle c="5.0" k="2.0" omega="0.0522" theta="15"/>
+      <angle c="4.0" k="2.0" omega="0.0604" theta="30"/>
+      <angle c="7.0" k="2.0" omega="0.0696" theta="45"/>
+      <angle c="8.0" k="2.0" omega="0.0752" theta="60"/>
+      <angle c="9.0" k="2.0" omega="0.0766" theta="75"/>
+      <angle c="5.0" k="2.0" omega="0.0719" theta="90"/>
+      <angle c="8.0" k="2.0" omega="0.0678" theta="105"/>
+      <angle c="3.6" k="2.0" omega="0.0573" theta="120"/>
+      <angle c="9.5" k="2.0" omega="0.0449" theta="135"/>
+      <angle c="5.0" k="2.0" omega="0.0426" theta="150"/>
+      <angle c="4.5" k="2.0" omega="0.0416" theta="165"/>
+      <angle c="6.5" k="2.0" omega="0.0410" theta="180"/>
+      <angle c="6.4" k="2.0" omega="0.0315" theta="195"/>
+      <angle c="7.0" k="2.0" omega="0.0279" theta="210"/>
+      <angle c="3.9" k="2.0" omega="0.0226" theta="225"/>
+      <angle c="5.2" k="2.0" omega="0.0160" theta="240"/>
+      <angle c="5.0" k="2.0" omega="0.0007" theta="255"/>
+      <angle c="5.0" k="2.0" omega="0.0065" theta="270"/>
+      <angle c="8.5" k="2.0" omega="0.0192" theta="285"/>
+      <angle c="4.6" k="2.0" omega="0.0233" theta="300"/>
+      <angle c="6.0" k="2.0" omega="0.0286" theta="315"/>
+      <angle c="7.0" k="2.0" omega="0.0397" theta="330"/>
+      <angle c="10.0" k="2.0" omega="0.0413" theta="345"/>
+   </Angles>
+   <Obstacles/>
+   <Parameters>
+       <WakeFreeEnergy>5504.29</WakeFreeEnergy>
+   </Parameters>
+</WindField>
