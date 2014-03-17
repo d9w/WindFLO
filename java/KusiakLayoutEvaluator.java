@@ -160,32 +160,4 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 		return wakeFreeRatio;
 	}
 	
-	public static void main(String argv[]) {
-		try {
-			int n=144;
-			double layout[][]=new double[n][2];
-			String currentLine;
-			BufferedReader br = new BufferedReader(new FileReader("layout2.txt"));
-			int i=0;
-			while ((currentLine=br.readLine()) != null && i<n) {
-				StringTokenizer tokenizer=new StringTokenizer(currentLine);
-				int j=0;
-				while (tokenizer.hasMoreElements() && j<2) {
-					layout[i][j]=Double.parseDouble(tokenizer.nextToken());
-					j++;
-				}
-				i++;
-			}
-			WindScenario ws = new WindScenario("01.xml");
-			KusiakLayoutEvaluator le = new KusiakLayoutEvaluator();
-			le.initialize(ws);
-			le.evaluate(layout);
-			System.out.println("Energy output: "+le.getEnergyOutput());
-			System.out.println("Wake free: "+le.getWakeFreeRatio());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-
 }
