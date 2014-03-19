@@ -1,43 +1,65 @@
-function [dcos,esin,Plarge,v1large,v2large]=initialize()
-% from runCMAES
+function ws=initialize(WindScenario)
+% returns a struct with the farm parameters based
+%   set parameters such as farm size
+%   wind parameters - the weibull distribution parameters
 
-model=1;
-load FarmParameters
-load WindResource2
-load initpos
+%% these parameters are farm-wide and not dependent on wind
+ws.CT=0.8;
+ws.farmRadius=500.0;
+ws.PRated=1500.0;
+ws.R=38.5;
+ws.eta=-500.0;
+ws.k=0.0750;
+ws.lambda=140.86;
+ws.vCin=3.5;
+ws.vCout=20;
+ws.vRated=14;
 
-pop=[];
-initpos1=initpos/scaling;
-for kl=1:1:length(initpos1(:,1))
-    pop=[pop initpos1(kl,:)];
+%% load the wind resource file
+
+sc_num = num2str(WindScenario, '%02d');
+
+try
+    docstruct = xml2struct(['../Scenarios/' sc_num '.xml']);
+catch
+    error(['Error reading scenario ' sc_num '.xml'])
 end
-xmean=pop;
-popv=pop;
-strfitnessfct='fitnessWTLayoutnew';
-fac=pi/180;
-tpositions(:,1)=popv(1,1:2:end)';
-tpositions(:,2)=popv(1,2:2:end)';
-coses=cos(mean(thetas,2)*fac);
-sins=sin(mean(thetas,2)*fac);
-largecos=repmat(coses,1,length(tpositions(:,1)));
-largesin=repmat(sins,1,length(tpositions(:,1)));
-%change the next statement to have transpose 
-bcoses=reshape(largecos',prod(size(largecos)),1);
-csins=reshape(largesin',prod(size(largesin)),1);
-dcos=repmat(bcoses,1,length(tpositions(:,1)));
-esin=repmat(csins,1,length(tpositions(:,1)));
-%power model
-vints=3.5:0.5:vRated;
-v1=vints(2:1:end);
-v2=vints(1:1:length(vints)-1);
-%v=(v1+v2)/2;
-v1large=repmat(v1',length(thetas(:,1)),length(tpositions(:,1)));
-v2large=repmat(v2',length(thetas(:,1)),length(tpositions(:,1)));
-for ghh=2:1:length(vints)
-    v=(vints(ghh)+vints(ghh-1))/2;
-    P(ghh-1)=PowOutput(v,model,vCin,vCout,vRated,PRated);
-end
-Plarge=repmat(P',length(thetas(:,1)),length(tpositions(:,1)));
 
-%function [EnergyCapture,particles]=fitnessWTLayoutnew(particles,dcos,esin,Plarge,v1large,v2large)
-fctin={dcos,esin,Plarge,v1large,v2large};
+cs = [];
+ks = [];
+omegas = [];
+thetas = [];
+energy = 0;
+
+for i=1:length(docstruct.Children)
+    class = docstruct.Children(i);
+    if strcmp(class.Name,'Angles')
+        for a=1:length(class.Children)
+            angle = class.Children(a);
+            if strcmp(angle.Name, 'angle')
+                for attr=1:length(angle.Attributes)
+                    eval([angle.Attributes(attr).Name 's=[' ...
+                        angle.Attributes(attr).Name 's ' ...
+                        angle.Attributes(attr).Value '];']);
+                end
+            end
+        end
+    end
+    if strcmp(class.Name, 'Obstacles')
+        % Not used currently
+    end
+    if strcmp(class.Name, 'Parameters')
+        for p=1:length(class.Children)
+            parameter = class.Children(p);
+            if strcmp(parameter.Name, 'WakeFreeEnergy')
+                energy = parameter.Children.Data;
+            end
+        end
+    end
+end
+
+ws.cs = cs;
+ws.ks = ks;
+ws.omegas = omegas;
+ws.thetas = [thetas' thetas'+15];
+ws.energy = energy;

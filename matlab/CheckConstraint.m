@@ -1,6 +1,5 @@
 function [constraint,tpositions, MD, D]=CheckConstraint(tpositions)
 %this can be changed into a MOO problem very easily
-load FarmParameters 
 % s1=(tpositions(:,1).^2+tpositions(:,2).^2)-(190000^2);
 % indices=find(s1<=0);
 % s2=length(indices);

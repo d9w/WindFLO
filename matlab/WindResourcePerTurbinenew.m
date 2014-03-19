@@ -23,12 +23,16 @@ load FarmParameters
       
     %now create the beta function 
     alpha=atan(k);
+    'alpha'
+    size(alpha)
     beta=acos((xlarge.*dcos+ylarge.*esin +const1)./sqrt((xlarge+const1*dcos).^2+(ylarge+const1*esin).^2)); 
     
     %Here changing to <0.0000001 because of precision issues in the above 
     ghj=find(beta<0.000001);
     
     %check for the presence of the wake 
+    size(beta)
+    size(alpha)
     wakepresence=beta<=alpha;
     %gets the indices for the diagnol back to zero<< if my goal is to just
     %make the diagnol as zero since it should not wake itself then I should
@@ -44,12 +48,16 @@ load FarmParameters
     VelDef=a./((1+b.*pjdist).^2);
     %add up the wake based on its presence 
     wk=wakepresence.*VelDef;
+    size(wakepresence)
+    size(VelDef)
     TotalVdef=sqrt(sum((wk.^2),2));
     % change the wind resource 
     %This was what was causing the error-Kalyan, February 2011
     %crep=repmat(c,1,length(tpositions(:,1)));
     temp1=repmat(c,[length(tpositions(:,1)) 1]);
     crep=reshape(temp1,prod(size(temp1)),1);
+    size(crep)
+    size(TotalVdef)
     crep=crep.*(1-TotalVdef);
     lp=1;
       vints=3.5:0.5:vRated;
