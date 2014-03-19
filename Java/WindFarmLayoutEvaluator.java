@@ -1,3 +1,12 @@
+/**
+ * The class WindFarmLayoutEvaluator is an interface to easily exchange the
+ * evaluation function of the wind farm layouts. The evaluator has to be initialized
+ * with a wind scenario before being used to evaluate any layouts with the
+ * evaluation function. After evaluation, the output data (energy output per 
+ * turbine, per direction, etc.) are available by the means of the corresponding
+ * getters. Each time the evaluation function is used, a global counter is 
+ * increased. This counter is available with the function getNumberOfEvaluation.
+ */
 public abstract class WindFarmLayoutEvaluator {
 	protected static int nEvals=0;
 	
@@ -50,6 +59,9 @@ public abstract class WindFarmLayoutEvaluator {
 	 */
 	public abstract double getWakeFreeRatio();
 	
+    /**
+     * Returns the global number of time the evaluation function has been called.
+     */
 	public static int getNumberOfEvaluation() {
 		return nEvals;
 	}	
