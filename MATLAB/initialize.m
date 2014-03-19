@@ -17,12 +17,10 @@ ws.vRated=14;
 
 %% load the wind resource file
 
-sc_num = num2str(WindScenario, '%02d');
-
 try
-    docstruct = xml2struct(['../Scenarios/' sc_num '.xml']);
+    docstruct = xml2struct(WindScenario);
 catch
-    error(['Error reading scenario ' sc_num '.xml'])
+    error(['Error reading scenario ' WindScenario])
 end
 
 cs = [];
