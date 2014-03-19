@@ -14,6 +14,8 @@ PRlarge=repmat(PRated,length(thetas(:,1)),nTurbines);
 VRlarge=repmat(vRated,length(thetas(:,1)),nTurbines);
 wbPrated=1-wblcdf(VRlarge,smallcs,smallks);
 prat=wbPrated.*PRlarge.*smalloms.*smallthets;
+size(pp)
+size(prat)
 r1=sum(sum(pp));
 r2=sum(sum(prat));
 TotalEnergy=r1+r2;
@@ -24,6 +26,7 @@ temp=pp(hj:hj+20,:);
 TSpE(h,:)=sum(temp);
 h=h+1;
 end
+size(TSpE)
 TSpE=TSpE+prat;
 
 

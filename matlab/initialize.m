@@ -52,7 +52,7 @@ for i=1:length(docstruct.Children)
         for p=1:length(class.Children)
             parameter = class.Children(p);
             if strcmp(parameter.Name, 'WakeFreeEnergy')
-                energy = parameter.Children.Data;
+                energy = str2double(parameter.Children.Data);
             end
         end
     end

@@ -16,7 +16,7 @@ classdef WindFarmLayoutEvaluator
         ws;                     % Wind scenario contains farm parameters
     end
     methods            
-        % Initialize
+        % Constructor
         % Initializes the evaluator with a wind scenario
         % This method doesn't increase the number of evaluations counter.
         % @param scenario
@@ -24,20 +24,27 @@ classdef WindFarmLayoutEvaluator
             WFLE.ws = initialize(WindScenario);
         end
         
-       % Evaluate
+        % Evaluate
         % Evaluates a given layout and returns its wake free ratio
         % This method increases the number of evaluations counter.
         % @param layout The layout to evaluate, n*2 matrix of [x[], y[]]
         % sets the wake free ratio of the layout, double between 0, 1,
         % or -1 is the layout is invalid
         function WFLE = evaluate(WFLE, Layout)
-            WFLE.wfRatio = -1;
             if WFLE.CheckConstraint(Layout)
                 % set the convenience matrices
                 WFLE = WFLE.SettingsMatrices(Layout);
-                [TotalEnergy,TSpE]=WFLE.WindResourcePerTurbine(Layout);
-                WFLE.wfRatio = TotalEnergy;
-                WFLE.EnergyOutputs = TSpE;
+                [TotalEnergy,TSpE] = WFLE.WindResourcePerTurbine(Layout);
+                WFLE.wfRatio = TotalEnergy./...
+                    (size(Layout,1)*WFLE.ws.energy);
+                WFLE.EnergyOutputs = TSpE';
+                WFLE.TurbineFitnesses = sum(WFLE.EnergyOutputs,1)./...
+                    WFLE.ws.energy;
+            else
+                WFLE.wfRatio = -1;
+                WFLE.EnergyOutputs = zeros(size(Layout,1),...
+                    size(WFLE.ws.thetas,1));
+                WFLE.TurbineFirnesses = -1.*ones(size(Layout,1),1);
             end
             WFLE.nEvals = WFLE.nEvals + 1;
         end
