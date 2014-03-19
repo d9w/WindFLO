@@ -11,6 +11,7 @@ classdef WindFarmLayoutEvaluator
     properties (SetAccess = private)
         nEvals = 0;             % number of evaluations run so far
         wfRatio = 0;            % current farm wake free ratio
+        EnergyOutput = 0;       % Energy capture of the field
         EnergyOutputs = [];     % Energy per turbine per direction, n*24
         TurbineFitnesses = [];  % Wake free ratio for each turbine, n*2
         ws;                     % Wind scenario contains farm parameters
@@ -35,6 +36,7 @@ classdef WindFarmLayoutEvaluator
                 % set the convenience matrices
                 WFLE = WFLE.SettingsMatrices(Layout);
                 [TotalEnergy,TSpE] = WFLE.WindResourcePerTurbine(Layout);
+                WFLE.EnergyOutput = TotalEnergy;
                 WFLE.wfRatio = TotalEnergy./...
                     (size(Layout,1)*WFLE.ws.energy);
                 WFLE.EnergyOutputs = TSpE';
@@ -42,6 +44,7 @@ classdef WindFarmLayoutEvaluator
                     WFLE.ws.energy;
             else
                 WFLE.wfRatio = -1;
+                WFLE.EnergyOutput = 0;
                 WFLE.EnergyOutputs = zeros(size(Layout,1),...
                     size(WFLE.ws.thetas,1));
                 WFLE.TurbineFitnesses = -1.*ones(size(Layout,1),1);
