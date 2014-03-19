@@ -110,7 +110,7 @@ energy_outputs = wfle.EnergyOutputs;
 n_evals = wfle.nEvals;
 ```
 
-An example of use can be seen in `cross\_validate.m`.
+An example of use can be seen in `cross_validate.m`.
 
 ## Questions, comments, bugs
 
