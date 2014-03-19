@@ -76,7 +76,7 @@ int main(int argc, const char * argv[])
 
   // read a layout file
   for (int i=0; i<100; i++) {
-    for (int sc=0; sc<9; sc++) {
+    for (int sc=0; sc<10; sc++) {
       stringstream layoutFileName;
       stringstream scFileName;
       char scnumber[64];

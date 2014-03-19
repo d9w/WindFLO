@@ -44,7 +44,7 @@ classdef WindFarmLayoutEvaluator
                 WFLE.wfRatio = -1;
                 WFLE.EnergyOutputs = zeros(size(Layout,1),...
                     size(WFLE.ws.thetas,1));
-                WFLE.TurbineFirnesses = -1.*ones(size(Layout,1),1);
+                WFLE.TurbineFitnesses = -1.*ones(size(Layout,1),1);
             end
             WFLE.nEvals = WFLE.nEvals + 1;
         end

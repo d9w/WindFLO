@@ -3,6 +3,7 @@ function [constraint,tpositions, MD, D]=CheckConstraint(tpositions)
 % s1=(tpositions(:,1).^2+tpositions(:,2).^2)-(190000^2);
 % indices=find(s1<=0);
 % s2=length(indices);
+load FarmParameters
 constraint=1;
 c=0;
 
