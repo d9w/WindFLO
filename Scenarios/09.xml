@@ -28,6 +28,9 @@
    </Angles>
    <Obstacles/>
    <Parameters>
+       <Width>7000</Width>
+       <Height>14000</Height>
+       <NTurbines>400</NTurbines>
        <WakeFreeEnergy>10546.9</WakeFreeEnergy>
    </Parameters>
 </WindField>
