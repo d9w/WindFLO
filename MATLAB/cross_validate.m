@@ -11,7 +11,8 @@ for i=0:99
     fclose(fid);
     layout=[A(2:2:end) A(3:2:end)];
     for sc=0:8
-        wfle = WindFarmLayoutEvaluator(sc);
+        scenarioFileName=['../Scenarios/0' num2str(sc) '.xml'];
+        wfle = WindFarmLayoutEvaluator(scenarioFileName);
         wfle = wfle.evaluate(layout);
         if abs(results(i*9+sc+1)-wfle.wfRatio) > 0.01
             disp(['error: ' num2str(i) ' ' num2str(sc)])
