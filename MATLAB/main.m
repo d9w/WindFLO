@@ -1,4 +1,6 @@
-wfle = WindFarmLayoutEvaluator('../Scenarios/obs_00.xml');
+function main(windscenario)
+
+wfle = WindFarmLayoutEvaluator(windscenario);
 
 % set up grid so that the centers are > 8*wfle.ws.R apart
 interval = 8.001 * wfle.ws.R;
@@ -40,7 +42,7 @@ for p=1:num_pop
     pops(:,p) = bins;
     layout = grid(logical(bins),:);
     wfle = wfle.evaluate(layout);
-    fits(p) = (wfle.wfRatio + size(layout,1)/size(grid,1))/2.0;
+    fits(p) = length(wfle.TurbineFitnesses(wfle.TurbineFitnesses>0.8));
 end
 
 % run the GA
@@ -52,7 +54,7 @@ for i=2:(1000/num_pop)
     for t=1:length(winners)
         indices=indices(randperm(length(indices)));
         tourney=indices(1:tour_size);
-        winners(t)=find(fits==max(fits(tourney)));
+        winners(t)=find(fits==max(fits(tourney)),1);
         indices(1:tour_size)=[];
     end 
     
@@ -83,8 +85,10 @@ for i=2:(1000/num_pop)
         bins = pops(:,p);
         layout = grid(logical(bins),:);
         wfle = wfle.evaluate(layout);
-        fits(p) = (wfle.wfRatio + size(layout,1)/size(grid,1))/2.0;
+        fits(p)=length(wfle.TurbineFitnesses(wfle.TurbineFitnesses>0.8));
     end
     
     disp([i max(fits)]);
+end
+
 end
