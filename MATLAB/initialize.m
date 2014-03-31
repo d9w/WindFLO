@@ -3,18 +3,6 @@ function ws=initialize(WindScenario)
 %   set parameters such as farm size
 %   wind parameters - the weibull distribution parameters
 
-%% these parameters are farm-wide and not dependent on wind
-ws.CT=0.8;
-ws.farmRadius=500.0;
-ws.PRated=1500.0;
-ws.R=38.5;
-ws.eta=-500.0;
-ws.k=0.0750;
-ws.lambda=140.86;
-ws.vCin=3.5;
-ws.vCout=20;
-ws.vRated=14;
-
 %% load the wind resource file
 
 try
@@ -27,7 +15,11 @@ cs = [];
 ks = [];
 omegas = [];
 thetas = [];
-ws.obstacles = [];
+obstacles = [];
+width = 0;
+height = 0;
+nturbines = 0;
+energy = 0;
 
 for i=1:length(docstruct.Children)
     class = docstruct.Children(i);
@@ -54,7 +46,7 @@ for i=1:length(docstruct.Children)
                 end
                 obdims = [xmin ymin xmax ymax];
                 if all(obdims >= zeros(1,4))
-                    ws.obstacles = [ws.obstacles; obdims];
+                    obstacles = [obstacles; obdims];
                 end
             end
         end
@@ -63,16 +55,16 @@ for i=1:length(docstruct.Children)
         for p=1:length(class.Children)
             parameter = class.Children(p);
             if strcmp(parameter.Name, 'Width')
-                ws.width = str2double(parameter.Children.Data);
+                width = str2double(parameter.Children.Data);
             end
             if strcmp(parameter.Name, 'Height')
-                ws.height = str2double(parameter.Children.Data);
+                height = str2double(parameter.Children.Data);
             end
             if strcmp(parameter.Name, 'NTurbines')
-                ws.nturbines = str2double(parameter.Children.Data);
+                nturbines = str2double(parameter.Children.Data);
             end
             if strcmp(parameter.Name, 'WakeFreeEnergy')
-                ws.energy = str2double(parameter.Children.Data);
+                energy = str2double(parameter.Children.Data);
             end
         end
     end
@@ -82,3 +74,19 @@ ws.cs = cs;
 ws.ks = ks;
 ws.omegas = omegas;
 ws.thetas = [thetas' thetas'+15];
+ws.obstacles = obstacles;
+ws.width = width;
+ws.height = height;
+ws.nturbines = nturbines;
+ws.energy = energy;
+
+%% these parameters are farm-wide and not dependent on wind
+ws.CT=0.8;
+ws.PRated=1500.0;
+ws.R=38.5;
+ws.eta=-500.0;
+ws.k=0.0750;
+ws.lambda=140.86;
+ws.vCin=3.5;
+ws.vCout=20;
+ws.vRated=14;
