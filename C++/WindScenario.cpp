@@ -12,7 +12,6 @@
 #include <sstream>
 #include <cstdio>
 #include <string>
-
 #include <cmath>
 
 double WindScenario::fac=M_PI/180;
@@ -35,12 +34,10 @@ WindScenario::WindScenario(string fileName) {
 
 WindScenario::WindScenario(const WindScenario& wsc):
 c(wsc.c),
-energy(wsc.energy),
 ks(wsc.ks),
 omegas(wsc.omegas),
 thetas(wsc.thetas),
 CT(wsc.CT),
-farmRadius(wsc.farmRadius),
 PRated(wsc.PRated),
 R(wsc.R),
 eta(wsc.eta),
@@ -50,6 +47,9 @@ vCin(wsc.vCin),
 vCout(wsc.vCout),
 vRated(wsc.vRated),
 wakeFreeEnergy(wsc.wakeFreeEnergy),
+width(wsc.width),
+height(wsc.height),
+nturbines(wsc.nturbines),
 coSinMidThetas(wsc.coSinMidThetas),
 rkRatio(wsc.rkRatio),
 vints(wsc.vints),
@@ -91,11 +91,13 @@ void WindScenario::generateScenario(string fileName) {
     }
     tinyxml2::XMLNode* obstacles = angles->NextSibling(); // not used right now
     tinyxml2::XMLNode* parameters = obstacles->NextSibling();
+    width = atof(parameters->FirstChildElement("Width")->GetText());
+    height = atof(parameters->FirstChildElement("Height")->GetText());
+    nturbines = atoi(parameters->FirstChildElement("NTurbines")->GetText());
     wakeFreeEnergy = atof(parameters->FirstChildElement("WakeFreeEnergy")->GetText());
 
     // these are currently all the same across scenarios, so aren't in the xml files
     CT=0.8;
-    farmRadius=500.0;
     PRated=1500.0;
     R=38.5;
     eta=-500.0;
@@ -118,24 +120,5 @@ void WindScenario::initOptimizationParameters() {
     for (double i=0; i<vints.cols; i++) {
       vints.set(0,i,3.5+i*0.5);
     }
-    /*cMax=0;
-    for (int i=0; i<c.cols; i++) {
-      if (cMax<c.get(0,i)) {
-	cMax=c.get(0,i);
-      }
-    }
-    cMin=0;
-        wblcdfValues=vector<double>();
-    for (double cTurb=cMin; cTurb<cMax; cTurb+=wblcdfAccuracy) {
-      for (int vi=0; vi<vints.cols+1; vi++) {
-	for (int ki=0; ki<ks.cols; ki++) {
-	  if (vi<vints.cols) {
-	    wblcdfValues.push_back(wblcdf(vints.get(0,vi), cTurb, ki));
-	  } else {
-	    wblcdfValues.push_back(wblcdf(vRated, cTurb, ki));
-	  } 
-	}
-      }
-      }*/
 }
 

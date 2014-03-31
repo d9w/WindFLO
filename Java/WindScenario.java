@@ -12,7 +12,6 @@ public class WindScenario {
 	// wind resources
 	public double ks[];
 	public double c[];
-	public double energy;
 	public double omegas[];
 	public double thetas[][];
 
@@ -27,6 +26,9 @@ public class WindScenario {
 	public double vCin;
 	public double vCout;
 	public double vRated;
+	public double width;
+	public double height;
+	public int nturbines;
 	public double wakeFreeEnergy;
 
 	// Optimization parameters
@@ -41,15 +43,15 @@ public class WindScenario {
     public double atan_k;
     public double trans_CT;
     public double minDist;
-    
+
     WindScenario(String xmlFileName) throws Exception {
     	File fXmlFile = new File(xmlFileName);
     	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
     	Document doc = dBuilder.parse(fXmlFile);
-    	
+
     	doc.getDocumentElement().normalize();
-    	
+
         c=new double[24];
         ks=new double[24];
         omegas=new double[24];
@@ -69,12 +71,14 @@ public class WindScenario {
     			omegas[i]=Double.parseDouble(eAngle.getAttribute("omega"));
     		}
     	}
-    	
+
+    	width=Double.parseDouble(((Node)(doc.getElementsByTagName("Width").item(0))).getTextContent());
+    	height=Double.parseDouble(((Node)(doc.getElementsByTagName("Height").item(0))).getTextContent());
+    	nturbines=Integer.parseInt(((Node)(doc.getElementsByTagName("NTurbines").item(0))).getTextContent());
     	wakeFreeEnergy=Double.parseDouble(((Node)(doc.getElementsByTagName("WakeFreeEnergy").item(0))).getTextContent());
-    	
+
         // these are currently all the same across scenarios, so aren't in the xml files
         CT=0.8;
-        farmRadius=500.0;
         PRated=1500.0;
         R=38.5;
         eta=-500.0;
@@ -86,7 +90,7 @@ public class WindScenario {
 
         initOptimizationParameters();
     }
-    
+
     void initOptimizationParameters() {
         coSinMidThetas=new double[thetas.length][2];
         for (int thets=0; thets<thetas.length; thets++) {

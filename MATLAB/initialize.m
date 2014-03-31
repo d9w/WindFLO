@@ -27,7 +27,6 @@ cs = [];
 ks = [];
 omegas = [];
 thetas = [];
-energy = 0;
 
 for i=1:length(docstruct.Children)
     class = docstruct.Children(i);
@@ -49,8 +48,17 @@ for i=1:length(docstruct.Children)
     if strcmp(class.Name, 'Parameters')
         for p=1:length(class.Children)
             parameter = class.Children(p);
+            if strcmp(parameter.Name, 'Width')
+                ws.width = str2double(parameter.Children.Data);
+            end
+            if strcmp(parameter.Name, 'Height')
+                ws.height = str2double(parameter.Children.Data);
+            end
+            if strcmp(parameter.Name, 'NTurbines')
+                ws.nturbines = str2double(parameter.Children.Data);
+            end
             if strcmp(parameter.Name, 'WakeFreeEnergy')
-                energy = str2double(parameter.Children.Data);
+                ws.energy = str2double(parameter.Children.Data);
             end
         end
     end
@@ -60,4 +68,3 @@ ws.cs = cs;
 ws.ks = ks;
 ws.omegas = omegas;
 ws.thetas = [thetas' thetas'+15];
-ws.energy = energy;
