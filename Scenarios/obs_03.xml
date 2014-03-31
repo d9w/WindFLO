@@ -28,6 +28,7 @@
    </Angles>
    <Obstacles>
        <obstacle xmin="3000" ymin="4000" xmax="4000" ymax="6500"/>
+       <obstacle xmin="6500" ymin="13500" xmax="7000" ymax="14000"/>
    </Obstacles>
    <Parameters>
        <Width>7000</Width>
