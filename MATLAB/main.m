@@ -1,4 +1,4 @@
-function main(windscenario)
+function wfle = main(windscenario)
 
 wfle = WindFarmLayoutEvaluator(windscenario);
 
