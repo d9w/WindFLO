@@ -7,7 +7,6 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 	protected double tpositions[][];
 	protected double energyCapture;
 	protected double wakeFreeRatio;
-	protected WindScenario scenario;
 	
 	public static final double fac=Math.PI/180;
 
@@ -70,20 +69,21 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 	}
 
 	@Override
-	public double[] getEnergyOutputs() {
-		double res[]=new double[tspe[0].length];
-		for (int i=0; i<res.length; i++) {
-			res[i]=0;
-			for (int j=0; j<tspe[i].length; j++) {
-				res[i]+=tspe[i][j];
-			}
-		}
-		return res;
+	public double[][] getEnergyOutputs() {
+		return tspe;
 	}
 
 	@Override
-	public double[][] getTurbineFitnesses() {
-		return tspe;
+	public double[] getTurbineFitnesses() {
+		double res[]=new double[tspe[0].length];
+		for (int i=0; i<res.length; i++) {
+			res[i]=0;
+			for (int j=0; j<tspe.length; j++) {
+				res[i]+=tspe[j][i];
+			}
+			res[i]=res[i]/scenario.wakeFreeEnergy;
+		}
+		return res;
 	}
 
 	protected boolean checkConstraint() {
