@@ -27,6 +27,7 @@ cs = [];
 ks = [];
 omegas = [];
 thetas = [];
+ws.obstacles = [];
 
 for i=1:length(docstruct.Children)
     class = docstruct.Children(i);
@@ -43,7 +44,20 @@ for i=1:length(docstruct.Children)
         end
     end
     if strcmp(class.Name, 'Obstacles')
-        % Not used currently
+        for o=1:length(class.Children)
+            obstacle = class.Children(o);
+            if strcmp(obstacle.Name, 'obstacle')
+                xmin=-1;ymin=-1;xmax=-1;ymax=-1;
+                for attr=1:length(obstacle.Attributes)
+                    eval([obstacle.Attributes(attr).Name '=' ...
+                        obstacle.Attributes(attr).Value ';']);
+                end
+                obdims = [xmin ymin xmax ymax];
+                if all(obdims >= zeros(1,4))
+                    ws.obstacles = [ws.obstacles; obdims];
+                end
+            end
+        end
     end
     if strcmp(class.Name, 'Parameters')
         for p=1:length(class.Children)

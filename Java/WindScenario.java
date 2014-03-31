@@ -30,6 +30,7 @@ public class WindScenario {
 	public double height;
 	public int nturbines;
 	public double wakeFreeEnergy;
+	public double obstacles[][];
 
 	// Optimization parameters
     protected static double fac=Math.PI/180;
@@ -69,6 +70,19 @@ public class WindScenario {
     			c[i]=Double.parseDouble(eAngle.getAttribute("c"));
     			ks[i]=Double.parseDouble(eAngle.getAttribute("k"));
     			omegas[i]=Double.parseDouble(eAngle.getAttribute("omega"));
+    		}
+    	}
+
+    	NodeList obstacleList = doc.getElementsByTagName("obstacle");
+    	obstacles=new double[obstacleList.getLength()][4];
+    	for (int i=0; i<obstacleList.getLength(); i++) {
+    		Node obstacle=obstacleList.item(i);
+    		if (obstacle.getNodeType()==Node.ELEMENT_NODE) {
+    			Element eobstacle=(Element)obstacle;
+    			obstacles[i][0]=Double.parseDouble(eobstacle.getAttribute("xmin"));
+    			obstacles[i][1]=Double.parseDouble(eobstacle.getAttribute("ymin"));
+    			obstacles[i][2]=Double.parseDouble(eobstacle.getAttribute("xmax"));
+    			obstacles[i][3]=Double.parseDouble(eobstacle.getAttribute("ymax"));
     		}
     	}
 

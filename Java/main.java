@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 public class main {
     public static void main(String argv[]) {
 	try {
-		WindScenario ws = new WindScenario("../Scenarios/00.xml");
+		WindScenario ws = new WindScenario("../Scenarios/obs_00.xml");
 		KusiakLayoutEvaluator le = new KusiakLayoutEvaluator();
 		le.initialize(ws);
 		System.out.println("The future home of an algorithm");
