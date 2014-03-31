@@ -73,7 +73,7 @@ while you can change this, to make the examples work, you must
 
 ```
 $ git clone https://github.com/d9w/WindFLO
-$ cd WindFlo
+$ cd WindFLO
 ```
 
 ## C++
