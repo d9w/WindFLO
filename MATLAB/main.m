@@ -1,6 +1,4 @@
-function main(windscenario)
-
-wfle = WindFarmLayoutEvaluator(windscenario);
+function main(wfle)
 
 % set up grid so that the centers are > 8*wfle.ws.R apart
 interval = 8.001 * wfle.ws.R;
