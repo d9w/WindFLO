@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WindField><!--Randomly generated wind-->
+   <Angles>
+      <angle c="9.9684" k="1.6325" omega="0.196" theta="0"/>
+      <angle c="8.2656" k="2.1755" omega="0.16973" theta="15"/>
+      <angle c="10.1772" k="4.0941" omega="0.13215" theta="30"/>
+      <angle c="8.4447" k="3.3102" omega="0.10188" theta="45"/>
+      <angle c="6.9932" k="2.1793" omega="0.07774" theta="60"/>
+      <angle c="9.3295" k="1.964" omega="0.059072" theta="75"/>
+      <angle c="9.0295" k="2.0856" omega="0.04555" theta="90"/>
+      <angle c="9.7079" k="1.9871" omega="0.034813" theta="105"/>
+      <angle c="10.6346" k="2.171" omega="0.027104" theta="120"/>
+      <angle c="9.5072" k="1.3289" omega="0.019818" theta="135"/>
+      <angle c="7.9404" k="1.5876" omega="0.015419" theta="150"/>
+      <angle c="9.3895" k="1.631" omega="0.011927" theta="165"/>
+      <angle c="10.0428" k="1.6339" omega="0.0093845" theta="180"/>
+      <angle c="10.0003" k="1.9092" omega="0.0071847" theta="195"/>
+      <angle c="7.9827" k="2.2821" omega="0.0055903" theta="210"/>
+      <angle c="9.6035" k="4.4299" omega="0.0050252" theta="225"/>
+      <angle c="8.1254" k="3.9625" omega="0.0064178" theta="240"/>
+      <angle c="8.3358" k="2.0811" omega="0.0081332" theta="255"/>
+      <angle c="8.0619" k="1.4207" omega="0.0098083" theta="270"/>
+      <angle c="9.7102" k="1.7993" omega="0.01332" theta="285"/>
+      <angle c="9.4618" k="1.988" omega="0.017881" theta="300"/>
+      <angle c="8.9012" k="1.8804" omega="0.022745" theta="315"/>
+      <angle c="9.1707" k="1.8757" omega="0.029546" theta="330"/>
+      <angle c="10.463" k="1.5055" omega="0.035822" theta="345"/>
+   </Angles>
+   <Obstacles>
+       <obstacle xmin="3000" ymin="4000" xmax="4000" ymax="6500"/>
+   </Obstacles>
+   <Parameters>
+       <Width>7000</Width>
+       <Height>14000</Height>
+       <NTurbines>400</NTurbines>
+       <WakeFreeEnergy>10111.5</WakeFreeEnergy>
+   </Parameters>
+</WindField>
