@@ -3,7 +3,7 @@ CFLAGS =-Wall -std=c++0x -g
 OPTFLAGS=-O2
 INCLUDES=-I$(PWD)
 
-SOURCES=tinyxml2.cpp WindScenario.cpp WindFarmLayoutEvaluator.cpp KusiakLayoutEvaluator.cpp
+SOURCES=tinyxml2.cpp WindScenario.cpp WindFarmLayoutEvaluator.cpp KusiakLayoutEvaluator.cpp GA.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 
 main:$(OBJECTS)
