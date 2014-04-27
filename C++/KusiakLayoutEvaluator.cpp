@@ -1,5 +1,3 @@
-#include <iostream>
-#include <stdio.h>
 #include "KusiakLayoutEvaluator.h"
 
 KusiakLayoutEvaluator::KusiakLayoutEvaluator() {
@@ -24,7 +22,6 @@ KusiakLayoutEvaluator::~KusiakLayoutEvaluator() {
 }
 
 double KusiakLayoutEvaluator::evaluate(Matrix<double>* layout) {
-  std::cout << "evaluating" << std::endl;
   nEvals++;
   if (tpositions) delete tpositions;
   tpositions=new Matrix<double>(layout);
@@ -32,7 +29,6 @@ double KusiakLayoutEvaluator::evaluate(Matrix<double>* layout) {
   energyCapture=0;
   wakeFreeRatio=0;
   if (checkConstraint()) {
-    std::cout << "constraint checked out" << std::endl;
     tspe=new Matrix<double>(scenario.thetas.rows, tpositions->rows);
     // Wind resource per turbine => stored temporaly in tspe
     for (int turb=0; turb<tpositions->rows; turb++) {

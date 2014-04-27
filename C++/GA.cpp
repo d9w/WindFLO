@@ -2,10 +2,10 @@
 //  GA.cpp
 //
 
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstdlib>
+#include <time.h>
 
 #include "GA.h"
 #include "WindScenario.h"
@@ -14,12 +14,13 @@
 GA::GA(KusiakLayoutEvaluator evaluator) {
   wfle = evaluator;
   num_pop = 20;
+  fits = new double[num_pop];
   nt = 0;
   tour_size = 4;
   mut_rate = 0.05;
   cross_rate = 0.40;
   grid = new Matrix<double>(0,2);
-  srand(0);
+  srand(time(NULL));
 }
 
 void GA::evaluate() {
@@ -27,7 +28,7 @@ void GA::evaluate() {
   for (int p=0; p<num_pop; p++) {
     int nturbines=0;
     for (int i=0; i<nt; i++) {
-      if (pops.get(i,p)) {
+      if (pops.get(i,p)>0) {
         nturbines++;
       }
     }
@@ -35,7 +36,7 @@ void GA::evaluate() {
     Matrix<double> layout = new Matrix<double>(nturbines,2);
     int l_i = 0;
     for (int i=0; i<nt; i++) {
-      if (pops.get(i,p)) {
+      if (pops.get(i,p)>0) {
         layout.set(l_i, 0, grid.get(i,0));
         layout.set(l_i, 1, grid.get(i,1));
         l_i++;
@@ -58,7 +59,7 @@ void GA::evaluate() {
     }
   }
 
-  printf("Fitness: %f", maxfit);
+  printf("%f\n", maxfit);
 }
 
 void GA::run() {
@@ -89,7 +90,7 @@ void GA::run() {
     }
   }
 
-  Matrix<double> grid = new Matrix<double>(nt, 2);
+  grid = new Matrix<double>(nt, 2);
   int t = 0;
   for (int x=0; x<nx; x++) {
     for (int y=0; y<ny; y++) {
@@ -112,30 +113,27 @@ void GA::run() {
   }
 
   // initialize populations
-  pops = new Matrix<bool>(nt, num_pop);
-  double fits [num_pop];
+  pops = new Matrix<int>(nt, num_pop);
 
   for (int p=0; p<num_pop; p++) {
     for (int i=0; i<nt; i++) {
-      bool turb = true;
-      if ((double)rand()/RAND_MAX > 0.5) {
-        turb = false;
+      int turb = 0;
+      double randbit = (double) rand()/RAND_MAX;
+      if (randbit > 0.5) {
+        turb = 1;
       }
       pops.set(i, p, turb);
     }
   }
 
-  std::cout << "here" << std::endl;
   // evaluate initial populations (uses num_pop evals)
   evaluate();
-  std::cout << "done evaluating" << std::endl;
 
   // GA
   for (int i=0; i<(1000/num_pop); i++) {
 
     // rank populations (tournament)
     int num_winners = num_pop/tour_size;
-    printf("num winners: %d", num_winners);
     int winners [num_winners];
     int competitors [num_pop];
     for (int c=0; c<num_pop; c++) {
@@ -148,6 +146,7 @@ void GA::run() {
       competitors[index] = competitors[c];
       competitors[c] = temp;
     }
+
 
     for (int t=0; t<num_winners; t++) {
       int winner = -1;
@@ -164,11 +163,16 @@ void GA::run() {
 
     // crossover
     // check row,col
-    Matrix<bool> children = new Matrix<bool>(nt, num_pop);
+    Matrix<int> children = new Matrix<int>(nt, num_pop);
 
     for (int c=0; c<(num_pop-num_winners); c++) {
-      int p1 = winners[rand() % num_winners];
-      int p2 = winners[(p1+1+(rand() % (num_winners-2)))%num_winners];
+      int s1 = rand() % num_winners;
+      int s2 = rand() % (num_winners-1);
+      if (s2 >= s1) {
+        s2++;
+      }
+      int p1 = winners[s1];
+      int p2 = winners[s2];
 
       for (int j=0; j<nt; j++) {
         if ((double)rand()/RAND_MAX < cross_rate) {
@@ -183,7 +187,7 @@ void GA::run() {
     for (int c=0; c<(num_pop-num_winners); c++) {
       for (int j=0; j<nt; j++) {
         if ((double)rand()/RAND_MAX < mut_rate) {
-          children.set(j,c,~children.get(j,c));
+          children.set(j,c,1-children.get(j,c));
         }
       }
     }

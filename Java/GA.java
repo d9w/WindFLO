@@ -130,8 +130,13 @@ public class GA {
           boolean[][] children = new boolean[num_pop][grid.size()];
 
           for (int c=0; c<(num_pop-winners.length); c++) {
-              int p1 = winners[rand.nextInt(winners.length)];
-              int p2 = winners[(p1+1+rand.nextInt(winners.length-2))%winners.length];
+              int s1 = rand.nextInt(winners.length);
+              int s2 = rand.nextInt(winners.length-1);
+              if (s2 >= s1) {
+                  s2++;
+              }
+              int p1 = winners[s1];
+              int p2 = winners[s2];
               boolean[] parent1 = pops[p1];
               boolean[] parent2 = pops[p2];
 

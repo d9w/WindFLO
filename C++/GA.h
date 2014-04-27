@@ -8,9 +8,9 @@
 class GA {
   public:
     KusiakLayoutEvaluator wfle;
-    Matrix<bool> pops;
-    double fits[];
+    Matrix<int> pops;
     int num_pop;
+    double* fits;
     int nt;
     int tour_size;
     double mut_rate;
