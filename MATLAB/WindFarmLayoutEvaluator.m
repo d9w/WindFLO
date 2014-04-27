@@ -58,7 +58,7 @@ classdef WindFarmLayoutEvaluator
         % Check the security constraint
         function check = CheckConstraint(WFLE, tpositions)
             R=WFLE.ws.R;
-            [D]=Mdist(tpositions);
+            [D]=squareform(pdist(tpositions));
             tempvec=65*R^2*ones(1,length(tpositions(:,1)));
             RMat=diag(tempvec);
             D=D+RMat;
