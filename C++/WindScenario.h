@@ -40,6 +40,7 @@ public:
     Matrix<double> thetas;
 
     // Farm parameters
+    Matrix<double> obstacles; //nobstacles * 4, rows of [xmin, ymin, xmax, ymax]
     double CT;
     double PRated;
     double R;

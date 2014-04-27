@@ -10,41 +10,59 @@
 
 int main(int argc, const char * argv[]) {
 
-  WindScenario wsc("../Scenarios/00.xml");
+  WindScenario wsc("../Scenarios/obs_00.xml");
   KusiakLayoutEvaluator wfle;
   wfle.initialize(wsc);
   double interval = 8.001 * wfle.scenario.R;
 
   int nx = (int) wfle.scenario.width / interval;
   int ny = (int) wfle.scenario.height / interval;
-  Matrix<double> layout = new Matrix<double>(nx*ny, 2);
 
-  int t=0;
+  // get number of valid grid spots
+  int nt=0;
   for (int x=0; x<nx; x++) {
     for (int y=0; y<ny; y++) {
-      // TODO: add obstacles to wind scenario
-      /*
-      boolean valid = true;
-      for (int o=0; o<wfle.scenario.obstacles.length; o++) {
-        double[] obs = wfle.scenario.obstacles[o];
-        if (x>obs[0] && y>obs[1] && x<obs[2] && y<obs[3]) {
+      double xpos = x*interval;
+      double ypos = y*interval;
+      bool valid = true;
+
+      for (unsigned int o=0; o<wfle.scenario.obstacles.rows; o++) {
+        Matrix<double> obs = wfle.scenario.obstacles.getRow(o);
+        if (xpos>obs.get(0,0) && ypos>obs.get(0,1) && xpos<obs.get(0,2) && ypos<obs.get(0,3)) {
           valid = false;
         }
       }
       if (valid) {
-        double[] point = {x, y};
-        grid.add(point);
+        nt++;
       }
-      */
+    }
+  }
 
-      layout.set(t, 0, x*interval);
-      layout.set(t, 1, y*interval);
-      printf("turbine %d/%d\t(%f, %f)\n", t, nx*ny, layout.get(t, 0), layout.get(t,1));
-      t++;
+  Matrix<double> layout = new Matrix<double>(nt, 2);
+  int t = 0;
+  for (int x=0; x<nx; x++) {
+    for (int y=0; y<ny; y++) {
+      double xpos = x*interval;
+      double ypos = y*interval;
+      bool valid = true;
+
+      for (unsigned int o=0; o<wfle.scenario.obstacles.rows; o++) {
+        Matrix<double> obs = wfle.scenario.obstacles.getRow(o);
+        if (xpos>obs.get(0,0) && ypos>obs.get(0,1) && xpos<obs.get(0,2) && ypos<obs.get(0,3)) {
+          valid = false;
+        }
+      }
+      if (valid) {
+        layout.set(t, 0, x*interval);
+        layout.set(t, 1, y*interval);
+        printf("turbine %d/%d\t(%f, %f)\n", t, nt, layout.get(t, 0), layout.get(t,1));
+        t++;
+      }
     }
   }
 
   printf("wake free ratio: %f\n", wfle.evaluate(&layout));
+  /*
   Matrix<double>* eouts = wfle.getEnergyOutputs();
   for (unsigned int i=0; i<eouts->rows; i++) {
     for (unsigned int j=0; j<eouts->cols; j++) {
@@ -52,8 +70,7 @@ int main(int argc, const char * argv[]) {
     }
     std::cout << std::endl;
   }
+  */
 
   printf("After %d evaluations\n", wfle.getNumberOfEvaluation());
-
-  std::cout << "the future home of an algorithm" << std::endl;
 }

@@ -56,6 +56,7 @@ vints(wsc.vints),
 wblcdfAccuracy(wsc.wblcdfAccuracy),
 cMax(wsc.cMax),
 cMin(wsc.cMin),
+obstacles(wsc.obstacles),
 wblcdfValues(wsc.wblcdfValues) {
   NbActiveScenario(1);
 }
@@ -89,8 +90,25 @@ void WindScenario::generateScenario(string fileName) {
       ks.set(0,i,elem->DoubleAttribute("k"));
       omegas.set(0,i,elem->DoubleAttribute("omega"));
     }
-    tinyxml2::XMLNode* obstacles = angles->NextSibling(); // not used right now
-    tinyxml2::XMLNode* parameters = obstacles->NextSibling();
+    tinyxml2::XMLNode* obstacle_nodes = angles->NextSibling(); // not used right now
+    tinyxml2::XMLNode* obstacle = obstacle_nodes->FirstChild();
+    // get number of obstacles
+    int n_obstacles = 0;
+    while (obstacle != NULL) {
+      obstacle = obstacle->NextSibling();
+      n_obstacles++;
+    }
+    obstacles = Matrix<double>(n_obstacles, 4);
+    obstacle = obstacle_nodes->FirstChild();
+    for (int i=0; i<n_obstacles; i++) {
+      elem = obstacle->ToElement();
+      obstacles.set(i,0,elem->DoubleAttribute("xmin"));
+      obstacles.set(i,1,elem->DoubleAttribute("ymin"));
+      obstacles.set(i,2,elem->DoubleAttribute("xmax"));
+      obstacles.set(i,3,elem->DoubleAttribute("ymax"));
+      obstacle = obstacle->NextSibling();
+    }
+    tinyxml2::XMLNode* parameters = obstacle_nodes->NextSibling();
     width = atof(parameters->FirstChildElement("Width")->GetText());
     height = atof(parameters->FirstChildElement("Height")->GetText());
     nturbines = atoi(parameters->FirstChildElement("NTurbines")->GetText());
