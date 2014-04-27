@@ -1,3 +1,5 @@
+#include <iostream>
+#include <stdio.h>
 #include "KusiakLayoutEvaluator.h"
 
 KusiakLayoutEvaluator::KusiakLayoutEvaluator() {
@@ -13,6 +15,7 @@ void KusiakLayoutEvaluator::initialize(WindScenario& sc) {
   if (tpositions) delete tpositions;
   tspe=NULL;
   tpositions=NULL;
+  nEvals=0;
 }
 
 KusiakLayoutEvaluator::~KusiakLayoutEvaluator() {
@@ -21,6 +24,7 @@ KusiakLayoutEvaluator::~KusiakLayoutEvaluator() {
 }
 
 double KusiakLayoutEvaluator::evaluate(Matrix<double>* layout) {
+  std::cout << "evaluating" << std::endl;
   nEvals++;
   if (tpositions) delete tpositions;
   tpositions=new Matrix<double>(layout);
@@ -28,15 +32,16 @@ double KusiakLayoutEvaluator::evaluate(Matrix<double>* layout) {
   energyCapture=0;
   wakeFreeRatio=0;
   if (checkConstraint()) {
+    std::cout << "constraint checked out" << std::endl;
     tspe=new Matrix<double>(scenario.thetas.rows, tpositions->rows);
     // Wind resource per turbine => stored temporaly in tspe
     for (int turb=0; turb<tpositions->rows; turb++) {
       // for each turbine
       for (int thets=0; thets<scenario.thetas.rows; thets++) {
-	  // for each direction
-	//                double theta=(scenario.thetas.get(thets, 0)+scenario.thetas.get(thets, 1))/2.0;
+	// for each direction
+	// double theta=(scenario.thetas.get(thets, 0)+scenario.thetas.get(thets, 1))/2.0;
 	// calculate wake
-	//                double totalVdef=calculateWakeTurbine(turb, theta);
+	// double totalVdef=calculateWakeTurbine(turb, theta);
 	double totalVdef=calculateWakeTurbine(turb, thets);
 	double cTurb=scenario.c.get(0,thets)*(1.0-totalVdef);
 	// annual power output per turbine and per direction
@@ -65,20 +70,20 @@ double KusiakLayoutEvaluator::evaluate(Matrix<double>* layout) {
 
 Matrix<double>* KusiakLayoutEvaluator::getEnergyOutputs() {
   if (!tspe) return NULL;
+  Matrix<double>* res = new Matrix<double>(tspe);
+  return res;
+}
+
+Matrix<double>* KusiakLayoutEvaluator::getTurbineFitnesses() {
+  if (!tspe) return NULL;
   Matrix<double>* res = new Matrix<double>(tpositions->rows, 1);
   for (int i=0; i<res->rows; i++) {
     double val=0.0;
     for (int j=0; j<tspe->rows; j++) {
       val+=tspe->get(j,i);
     }
-    res->set(i,0,val);
+    res->set(i,0,val/scenario.wakeFreeEnergy);
   }
-  return res;
-}
-
-Matrix<double>* KusiakLayoutEvaluator::getTurbineFitnesses() {
-  if (!tspe) return NULL;
-  Matrix<double>* res = new Matrix<double>(tspe);
   return res;
 }
 
@@ -179,6 +184,7 @@ bool KusiakLayoutEvaluator::checkConstraint() {
 	double dist=(tpositions->get(i, 0)-tpositions->get(j, 0))*(tpositions->get(i, 0)-tpositions->get(j, 0))+
 	  (tpositions->get(i, 1)-tpositions->get(j, 1))*(tpositions->get(i, 1)-tpositions->get(j, 1));
 	if (dist<minDist) {
+          printf("dist:\t%f\t<\t%f\t(%d,%d)\n",dist,minDist,i,j);
 	  return false;
 	}
       }

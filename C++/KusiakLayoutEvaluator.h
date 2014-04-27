@@ -18,13 +18,13 @@ class KusiakLayoutEvaluator : public WindFarmLayoutEvaluator {
     virtual Matrix<double>* getTurbineFitnesses();
     virtual double getEnergyOutput() {return energyCapture;};
     virtual double getWakeFreeRatio() {return wakeFreeRatio;};
+    WindScenario scenario;
 
  protected:
     Matrix<double>* tspe;
     Matrix<double>* tpositions;
     double energyCapture;
     double wakeFreeEnergy;
-    WindScenario scenario;
     double wakeFreeRatio;
     
     bool checkConstraint();

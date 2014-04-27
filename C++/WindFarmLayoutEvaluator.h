@@ -17,7 +17,7 @@ class WindFarmLayoutEvaluator {
  public:
   WindFarmLayoutEvaluator(){};
   virtual ~WindFarmLayoutEvaluator(){};
-    
+
     /**
 	 * Initializes the evaluator with a wind scenario
 	 * This method doesn't increase the number of evaluations counter.
@@ -33,21 +33,25 @@ class WindFarmLayoutEvaluator {
 	 * or a negative value is the layout is invalid
 	 */
   virtual double evaluate(Matrix<double>* layout)=0;
-    
-	/**
-	 * Returns the energy outputs per wind turbine and per direction of the last layout evaluated,
-	 * ordered as in the layout vector provided to the evaluation method and the wind scenario wind directions.
-	 * A layout must have been evaluated before this method is called.
-	 * This method doesn't increase the number of evaluation counter.
-	 * @return The energy outputs; null if no layout have been evaluated
+
+        /**
+         * Returns the energy outputs per wind turbine and per direction of the
+         * last layout evaluated, ordered as in the layout vector provided to
+         * the evaluation method and the wind scenario wind directions.
+         * A layout must have been evaluated before this method is called.
+         * This method doesn't increase the number of evaluation counter.
+         * @return The energy outputs; null if no layout have been evaluated
 	 */
+
   virtual Matrix<double>* getEnergyOutputs()=0;
 
-	/**
-	 * Returns the wake free ratio per wind turbine of the last layout evaluated, ordered as in the layout vector
-	 * provided in the evaluation method. A layout must have been evaluated before this method is called.
-	 * This method doesn't increase the number of evaluation counter.
-	 * @return The wake free ratio per turbine
+        /**
+         * Returns the wake free ratio per wind turbine of the last layout
+         * evaluated, ordered as in the layout vector provided in the
+         * evaluation method.
+         * A layout must have been evaluated before this method is called.
+         * This method doesn't increase the number of evaluation counter.
+         * @return The wake free ratio per turbine
 	 */
     virtual Matrix<double>* getTurbineFitnesses()=0;
 

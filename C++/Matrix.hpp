@@ -18,14 +18,14 @@ template<class T> class Matrix {
 public:
     unsigned int rows;
     unsigned int cols;
-    
+
     //Matrix () {};
     Matrix (unsigned int rows=1, unsigned int cols=1);
     Matrix (const Matrix<T>* m);
     Matrix (unsigned int rows, unsigned int cols, const T* elements);
     Matrix (unsigned int rows, unsigned int cols, const std::vector<T>& elements);
     ~Matrix() {};
-    
+
     inline T& operator()(unsigned int i, unsigned int j) {return elements[i*cols+j];};
     inline const T& operator()(unsigned int i, unsigned int j) const {return elements[i*cols+j];};
     inline const T& get(unsigned int i, unsigned int j) const {return elements[i*cols+j];};
@@ -38,13 +38,13 @@ public:
     Matrix<T>* operator-(const Matrix<T>* m) const;
     bool isZero() const;
     Matrix<T>* transpose() const;
-    
+
     std::string toString() const;
-    
-    
+
+
     //Matrix<T>& addRow(unsigned int index, const Matrix<T>& row);
     //Matrix<T>& addCol(unsigned int index, const Matrix<T>& row);
-    
+
     Matrix<T>* getCol(unsigned int index) const;
     Matrix<T>* getRow(unsigned int index) const;
 
