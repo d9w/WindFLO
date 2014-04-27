@@ -78,12 +78,22 @@ $ cd WindFLO
 
 ## C++
 
-The C++ interface is still under development.
+The C++ interface is displayed in `main.cpp` and `GA.cpp`. To compile and run
+using gcc, a makefile has been provided. We are still working on the
+expectations for C++ submissions, but expect to build your algorithm with a
+makefile similar to this one. The example GA can be run using (from the WindFLO
+directory):
+
+```Bash
+$ cd c++
+$ make
+$ ./eval.o
+```
 
 ## Java
 
 The Java interface is displayed in `main.java` and `GA.java`. To compile and
-run using Java v6, use (from WindFlo directory):
+run using Java v6, use (from WindFLO directory):
 
 ```Bash
 $ cd Java
