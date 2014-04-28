@@ -14,13 +14,17 @@
 GA::GA(KusiakLayoutEvaluator evaluator) {
   wfle = evaluator;
   num_pop = 20;
-  fits = new double[num_pop];
   nt = 0;
   tour_size = 4;
   mut_rate = 0.05;
   cross_rate = 0.40;
-  grid = new Matrix<double>(0,2);
   srand(time(NULL));
+}
+
+GA::~GA() {
+  delete[] fits;
+  delete pops;
+  delete grid;
 }
 
 void GA::evaluate() {
@@ -28,27 +32,27 @@ void GA::evaluate() {
   for (int p=0; p<num_pop; p++) {
     int nturbines=0;
     for (int i=0; i<nt; i++) {
-      if (pops.get(i,p)>0) {
+      if (pops->get(i,p)>0) {
         nturbines++;
       }
     }
 
-    Matrix<double> layout = new Matrix<double>(nturbines,2);
+    Matrix<double>* layout = new Matrix<double>(nturbines,2);
     int l_i = 0;
     for (int i=0; i<nt; i++) {
-      if (pops.get(i,p)>0) {
-        layout.set(l_i, 0, grid.get(i,0));
-        layout.set(l_i, 1, grid.get(i,1));
+      if (pops->get(i,p)>0) {
+        layout->set(l_i, 0, grid->get(i,0));
+        layout->set(l_i, 1, grid->get(i,1));
         l_i++;
       }
     }
 
-    wfle.evaluate(&layout);
-    Matrix<double> fitnesses = wfle.getTurbineFitnesses();
+    wfle.evaluate(layout);
+    Matrix<double>* fitnesses = wfle.getTurbineFitnesses();
 
     int n_valid = 0;
     for (int i=0; i<nturbines; i++) {
-      if (fitnesses.get(i,0) > 0.80) {
+      if (fitnesses->get(i,0) > 0.80) {
         n_valid++;
       }
     }
@@ -57,12 +61,17 @@ void GA::evaluate() {
     if (fits[p] > maxfit) {
         maxfit = fits[p];
     }
+    delete layout;
+    delete fitnesses;
   }
 
   printf("%f\n", maxfit);
 }
 
 void GA::run() {
+
+  fits = new double[num_pop];
+
   // set up grid
   // centers must be > 8*R apart
   double interval = 8.001 * wfle.scenario.R;
@@ -79,8 +88,11 @@ void GA::run() {
       bool valid = true;
 
       for (unsigned int o=0; o<wfle.scenario.obstacles.rows; o++) {
-        Matrix<double> obs = wfle.scenario.obstacles.getRow(o);
-        if (xpos>obs.get(0,0) && ypos>obs.get(0,1) && xpos<obs.get(0,2) && ypos<obs.get(0,3)) {
+        double xmin = wfle.scenario.obstacles.get(o, 0);
+        double ymin = wfle.scenario.obstacles.get(o, 1);
+        double xmax = wfle.scenario.obstacles.get(o, 2);
+        double ymax = wfle.scenario.obstacles.get(o, 3);
+        if (xpos>xmin && ypos>ymin && xpos<xmax && ypos<ymax) {
           valid = false;
         }
       }
@@ -99,14 +111,17 @@ void GA::run() {
       bool valid = true;
 
       for (unsigned int o=0; o<wfle.scenario.obstacles.rows; o++) {
-        Matrix<double> obs = wfle.scenario.obstacles.getRow(o);
-        if (xpos>obs.get(0,0) && ypos>obs.get(0,1) && xpos<obs.get(0,2) && ypos<obs.get(0,3)) {
+        double xmin = wfle.scenario.obstacles.get(o, 0);
+        double ymin = wfle.scenario.obstacles.get(o, 1);
+        double xmax = wfle.scenario.obstacles.get(o, 2);
+        double ymax = wfle.scenario.obstacles.get(o, 3);
+        if (xpos>xmin && ypos>ymin && xpos<xmax && ypos<ymax) {
           valid = false;
         }
       }
       if (valid) {
-        grid.set(t, 0, x*interval);
-        grid.set(t, 1, y*interval);
+        grid->set(t, 0, x*interval);
+        grid->set(t, 1, y*interval);
         t++;
       }
     }
@@ -122,7 +137,7 @@ void GA::run() {
       if (randbit > 0.5) {
         turb = 1;
       }
-      pops.set(i, p, turb);
+      pops->set(i, p, turb);
     }
   }
 
@@ -163,7 +178,7 @@ void GA::run() {
 
     // crossover
     // check row,col
-    Matrix<int> children = new Matrix<int>(nt, num_pop);
+    Matrix<int>* children = new Matrix<int>(nt, num_pop);
 
     for (int c=0; c<(num_pop-num_winners); c++) {
       int s1 = rand() % num_winners;
@@ -176,9 +191,9 @@ void GA::run() {
 
       for (int j=0; j<nt; j++) {
         if ((double)rand()/RAND_MAX < cross_rate) {
-          children.set(j,c,pops.get(j,p1));
+          children->set(j,c,pops->get(j,p1));
         } else {
-          children.set(j,c,pops.get(j,p2));
+          children->set(j,c,pops->get(j,p2));
         }
       }
     }
@@ -187,7 +202,7 @@ void GA::run() {
     for (int c=0; c<(num_pop-num_winners); c++) {
       for (int j=0; j<nt; j++) {
         if ((double)rand()/RAND_MAX < mut_rate) {
-          children.set(j,c,1-children.get(j,c));
+          children->set(j,c,1-children->get(j,c));
         }
       }
     }
@@ -195,13 +210,18 @@ void GA::run() {
     // elitism
     for (int c=0; c<num_winners; c++) {
       for (int j=0; j<nt; j++) {
-        children.set(j, num_pop-num_winners+c, pops.get(j,winners[c]));
+        children->set(j, num_pop-num_winners+c, pops->get(j,winners[c]));
       }
     }
 
-    pops = children;
+    for (int c=0; c<num_pop; c++) {
+      for (int j=0; j<nt; j++) {
+        pops->set(j, c, children->get(j, c));
+      }
+    }
 
     // evaluate
     evaluate();
+    delete children;
   }
 }

@@ -16,5 +16,4 @@ int main(int argc, const char * argv[]) {
   wfle.initialize(wsc);
   GA ga(wfle);
   ga.run();
-  printf("After %d evaluations\n", wfle.getNumberOfEvaluation());
 }

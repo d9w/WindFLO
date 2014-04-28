@@ -8,17 +8,17 @@
 class GA {
   public:
     KusiakLayoutEvaluator wfle;
-    Matrix<int> pops;
+    Matrix<int>* pops;
     int num_pop;
     double* fits;
     int nt;
     int tour_size;
     double mut_rate;
     double cross_rate;
-    Matrix<double> grid;
+    Matrix<double>* grid;
 
     GA(KusiakLayoutEvaluator evaluator);
-    //~GA();
+    ~GA();
     void run();
 
   private:
