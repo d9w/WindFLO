@@ -30,7 +30,7 @@ public class WindScenario {
 	public double height;
 	public int nturbines;
 	public double wakeFreeEnergy;
-	public double obstacles[][];
+    public double obstacles[][]; // rows of [xmin, ymin, xmax, ymax]
 
 	// Optimization parameters
     protected static double fac=Math.PI/180;

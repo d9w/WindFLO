@@ -28,7 +28,7 @@ GA::~GA() {
 }
 
 void GA::evaluate() {
-  double maxfit = 0.0;
+  double maxfit = -std::numeric_limits<double>::max();
   for (int p=0; p<num_pop; p++) {
     int nturbines=0;
     for (int i=0; i<nt; i++) {
@@ -47,7 +47,8 @@ void GA::evaluate() {
       }
     }
 
-    wfle.evaluate(layout);
+    double coe = wfle.evaluate(layout);
+    //    cout << coe << endl;
     Matrix<double>* fitnesses = wfle.getTurbineFitnesses();
 
     int n_valid = 0;
@@ -57,7 +58,7 @@ void GA::evaluate() {
       }
     }
 
-    fits[p] = n_valid;
+    fits[p] = -coe; //n_valid;
     if (fits[p] > maxfit) {
         maxfit = fits[p];
     }
@@ -94,7 +95,7 @@ void GA::run() {
         double ymax = wfle.scenario.obstacles.get(o, 3);
         if (xpos>xmin && ypos>ymin && xpos<xmax && ypos<ymax) {
           valid = false;
-        }
+	  }
       }
       if (valid) {
         nt++;

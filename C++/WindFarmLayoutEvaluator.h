@@ -26,13 +26,26 @@ class WindFarmLayoutEvaluator {
   virtual void initialize(WindScenario& scenario)=0;
     
     /**
-	 * Evaluates a given layout and returns its wake free ratio
-	 * This method increases the number of evaluations counter.
-	 * @param layout The layout to evaluate
-	 * @return The wake free ratio of the layout
-	 * or a negative value is the layout is invalid
-	 */
+     * 2015 WIND FARM LAYOUT OPTIMIZATION EVALUATION FUNCTION
+     *
+     * Evaluates a given layout and returns its cost of energy.
+     * This method increases the number of evaluations counter.
+     * @param layout The layout to evaluate
+     * @return The cost cost of energy (positive)
+     * and max_double if the layout is invalid
+     */
   virtual double evaluate(Matrix<double>* layout)=0;
+
+    /**
+     * 2014 WIND FARM LAYOUT OPTIMIZATION EVALUATION FUNCTION
+     *
+     * Evaluates a given layout and returns its wake free ratio
+     * This method increases the number of evaluations counter.
+     * @param layout The layout to evaluate
+     * @return The wake free ratio of the layout
+     * or a negative value is the layout is invalid
+     */
+  virtual double evaluate_2014(Matrix<double>* layout)=0;
 
         /**
          * Returns the energy outputs per wind turbine and per direction of the

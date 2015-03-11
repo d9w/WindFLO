@@ -24,7 +24,7 @@ public class GA {
     }
 
     private void evaluate() {
-        double maxfit = 0.0;
+        double maxfit = -Double.MAX_VALUE;
         for (int p=0; p<num_pop; p++) {
             int nturbines=0;
             for (int i=0; i<grid.size(); i++) {
@@ -43,17 +43,16 @@ public class GA {
                 }
             }
 
-            wfle.evaluate(layout);
-            double[] fitnesses = wfle.getTurbineFitnesses();
+	    double coe = wfle.evaluate(layout);
+//            double[] fitnesses = wfle.getTurbineFitnesses();
+//             int n_valid = 0;
+//             for (int i=0; i<fitnesses.length; i++) {
+//                 if (fitnesses[i] > 0.80) {
+//                     n_valid++;
+//                 }
+//             }
 
-            int n_valid = 0;
-            for (int i=0; i<fitnesses.length; i++) {
-                if (fitnesses[i] > 0.80) {
-                    n_valid++;
-                }
-            }
-
-            fits[p] = n_valid;
+            fits[p] = -coe; //n_valid;
             if (fits[p] > maxfit) {
                 maxfit = fits[p];
             }

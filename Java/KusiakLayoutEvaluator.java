@@ -19,8 +19,25 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 		this.scenario=scenario;
 	}
 
-	@Override
+        @Override
 	public double evaluate(double[][] layout) {
+	    final double ct  = 750000;
+	    final double cs  = 8000000;
+	    final double m   = 30;
+	    final double r   = 0.03;
+	    final double y   = 20;
+	    final double com = 20000;
+
+	    double wfr = evaluate_2014(layout);
+	    if (wfr<=0) return Double.MAX_VALUE; 
+	    int n = layout.length;
+
+	    return ((ct*n+cs*Math.floor(n/m)*(0.666667+0.333333*Math.exp(-0.00174*n*n))+com*n)/
+		    ((1-Math.pow(1+r, -y))/r)/(8760.0*scenario.wakeFreeEnergy*wfr))+0.1/n;
+	}
+
+	@Override
+	public double evaluate_2014(double[][] layout) {
 		WindFarmLayoutEvaluator.nEvals++;
 		// Copying the layout
 		tpositions=new double[layout.length][layout[0].length];
@@ -88,12 +105,24 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 
 	protected boolean checkConstraint() {
 	    for (int i=0; i<tpositions.length; i++) {
+		// checking obstacle constraints
+		for (int j=0; j<scenario.obstacles.length; j++) {
+		    if (tpositions[i][0] > scenario.obstacles[j][0] &&
+			tpositions[i][0] < scenario.obstacles[j][2] &&
+			tpositions[i][1] > scenario.obstacles[j][1] &&
+			tpositions[i][1] < scenario.obstacles[j][3]) {
+			System.out.println("Turbine "+i+"("+tpositions[i][0]+", "+tpositions[i][1]+") is in the obstacle "+j+" ["+scenario.obstacles[j][0]+", "+scenario.obstacles[j][1]+", "+scenario.obstacles[j][2]+", "+scenario.obstacles[j][3]+"].");
+			return false;
+		    }
+		}
+		// checking the security constraints
 	        for (int j=0; j<tpositions.length; j++) {
 	            if (i!=j) {
 	                // calculate the sqared distance between both turb
 	                double dist=(tpositions[i][0]-tpositions[j][0])*(tpositions[i][0]-tpositions[j][0])+
 	                (tpositions[i][1]-tpositions[j][1])*(tpositions[i][1]-tpositions[j][1]);
 	                if (dist<scenario.minDist) {
+			    System.out.println("Security distance contraint violated between turbines "+i+" ("+tpositions[i][0]+", "+tpositions[i][1]+") and "+j+" ("+tpositions[j][0]+", "+tpositions[j][1]+"): "+Math.sqrt(dist)+" > "+Math.sqrt(scenario.minDist));
 	                    return false;
 	                }
 	            }

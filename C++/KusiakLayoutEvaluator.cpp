@@ -22,6 +22,22 @@ KusiakLayoutEvaluator::~KusiakLayoutEvaluator() {
 }
 
 double KusiakLayoutEvaluator::evaluate(Matrix<double>* layout) {
+  static double ct  = 750000;
+  static double cs  = 8000000;
+  static double m   = 30;
+  static double r   = 0.03;
+  static double y   = 20;
+  static double com = 20000;
+  
+  double wfr = evaluate_2014(layout);
+  if (wfr <= 0) return std::numeric_limits<double>::max();
+  int n = layout->rows;
+  
+  return ((ct*n+cs*std::floor(n/m)*(0.666667+0.333333*std::exp(-0.00174*n*n))+com*n)/
+	  ((1.0-std::pow(1.0+r, -y))/r)/(8760.0*scenario.wakeFreeEnergy*wfr))+0.1/n;
+}
+
+double KusiakLayoutEvaluator::evaluate_2014(Matrix<double>* layout) {
   nEvals++;
   if (tpositions) delete tpositions;
   tpositions=new Matrix<double>(layout);
@@ -174,9 +190,22 @@ double KusiakLayoutEvaluator::calculateBeta(double xi, double yi, double xj, dou
 bool KusiakLayoutEvaluator::checkConstraint() {
   static const double minDist=64.0*scenario.R*scenario.R;
   for (int i=0; i<tpositions->rows; i++) {
+    // check for obstacles
+    for (int j=0; j<scenario.obstacles.rows; j++) {
+      if (tpositions->get(i, 0) > scenario.obstacles.get(j, 0) &&
+	  tpositions->get(i, 0) < scenario.obstacles.get(j, 2) &&
+	  tpositions->get(i, 1) > scenario.obstacles.get(j, 1) &&
+	  tpositions->get(i, 1) < scenario.obstacles.get(j, 3)) {
+	printf("Obstacle %d [%f, %f, %f, %f] violated by turbine %d (%f, %f)\n", 
+	       j, scenario.obstacles.get(j, 0), scenario.obstacles.get(j, 1),
+	       scenario.obstacles.get(j, 2), scenario.obstacles.get(j, 3), i);
+	return false;
+      }
+    }
+    // checking security distance constraint
     for (int j=0; j<tpositions->rows; j++) {
       if (i!=j) {
-	// calculate the sqared distance between both turb
+	// calculate the sqared distance between both turbs
 	double dist=(tpositions->get(i, 0)-tpositions->get(j, 0))*(tpositions->get(i, 0)-tpositions->get(j, 0))+
 	  (tpositions->get(i, 1)-tpositions->get(j, 1))*(tpositions->get(i, 1)-tpositions->get(j, 1));
 	if (dist<minDist) {

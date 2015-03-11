@@ -19,13 +19,26 @@ public abstract class WindFarmLayoutEvaluator {
 	public abstract void initialize(WindScenario scenario);
 
 	/**
+	 * 2015 WIND FARM LAYOUT OPTIMIZATION EVALUATION FUNCTION
+         *
+	 * Evaluates a given layout and returns its cost of energy
+	 * Calling this method increases the number of evaluations counter.
+	 * @param layout The layout to evaluate
+	 * @return the cost of energy (positive) 
+	 * and max_double if the layout is invalid
+	 */
+	public abstract double evaluate(double[][] layout);
+
+	/**
+	 * 2014 WIND FARM LAYOUT OPTIMIZATION EVALUATION FUNCTION
+         *
 	 * Evaluates a given layout and returns its wake free ratio
 	 * This method increases the number of evaluations counter.
 	 * @param layout The layout to evaluate
 	 * @return The wake free ratio of the layout 
 	 * or a negative value is the layout is invalid
 	 */
-	public abstract double evaluate(double[][] layout);
+	public abstract double evaluate_2014(double[][] layout);
 
 	/**
 	 * Returns the energy outputs per wind turbine and per direction of the last

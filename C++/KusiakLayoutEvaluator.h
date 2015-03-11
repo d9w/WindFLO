@@ -13,6 +13,7 @@ class KusiakLayoutEvaluator : public WindFarmLayoutEvaluator {
     virtual void initialize(WindScenario& scenario);
 
     virtual double evaluate(Matrix<double>* layout);
+    virtual double evaluate_2014(Matrix<double>* layout);
 
     virtual Matrix<double>* getEnergyOutputs();
     virtual Matrix<double>* getTurbineFitnesses();
