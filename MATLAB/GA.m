@@ -83,7 +83,7 @@ for i=2:(1000/num_pop)
         bins = pops(:,p);
         layout = grid(logical(bins),:);
         wfle = wfle.evaluate(layout);
-        fits(p)=length(wfle.TurbineFitnesses(wfle.TurbineFitnesses>0.8));
+        fits(p)=wfle.EnergyCost;
     end
     
     disp([i max(fits)]);

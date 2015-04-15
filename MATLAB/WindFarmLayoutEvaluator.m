@@ -6,9 +6,11 @@ classdef WindFarmLayoutEvaluator
         v1large = [];
         v2large = [];
         Plarge = [];
+
     end
     % read-access variables, simply call WFLE.var_name
     properties (SetAccess = private)
+        EnergyCost = 0;     % cost of energy, 2015 evaluation function
         nEvals = 0;             % number of evaluations run so far
         wfRatio = 0;            % current farm wake free ratio
         EnergyOutput = 0;       % Energy capture of the field
@@ -42,7 +44,18 @@ classdef WindFarmLayoutEvaluator
                 WFLE.EnergyOutputs = TSpE';
                 WFLE.TurbineFitnesses = sum(WFLE.EnergyOutputs,2)./...
                     WFLE.ws.energy;
+                % 2015 energy cost function
+                n = size(Layout,1);
+                ct  = 750000;
+                cs  = 8000000;
+                m   = 30;
+                r   = 0.03;
+                y   = 20;
+                com = 20000;
+                WFLE.EnergyCost = ((ct*n+cs*floor(n/m)*(0.666667+0.333333*exp(-0.00174*n*n))+com*n)/...
+                    ((1.0-(1.0+r)^(-y))/r)/(8760.0*WFLE.ws.energy*WFLE.wfRatio))+0.1/n;
             else
+                WFLE.EnergyCost = intmax;
                 WFLE.wfRatio = -1;
                 WFLE.EnergyOutput = 0;
                 WFLE.EnergyOutputs = zeros(size(Layout,1),...
@@ -64,6 +77,16 @@ classdef WindFarmLayoutEvaluator
             D=D+RMat;
             %Diagnols are fixed. 
             check=isempty(find(D<=8*R,1));
+            % check obstacles
+            for i=1:size(tpositions,1)
+                for o=1:size(WFLE.ws.obstacles,1)
+                    if all([tpositions(i,:)>WFLE.ws.obstacles(o,1:2) ...
+                            tpositions(i,:)<WFLE.ws.obstacles(o,3:4)])
+                        check=0;
+                        break;
+                    end
+                end
+            end
         end
         
         % Convenience matrices
