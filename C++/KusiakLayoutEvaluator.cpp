@@ -34,7 +34,7 @@ double KusiakLayoutEvaluator::evaluate(Matrix<double>* layout) {
   int n = layout->rows;
   
   return ((ct*n+cs*std::floor(n/m)*(0.666667+0.333333*std::exp(-0.00174*n*n))+com*n)/
-	  ((1.0-std::pow(1.0+r, -y))/r)/(8760.0*scenario.wakeFreeEnergy*wfr))+0.1/n;
+	  ((1.0-std::pow(1.0+r, -y))/r)/(8760.0*scenario.wakeFreeEnergy*wfr*n))+0.1/n;
 }
 
 double KusiakLayoutEvaluator::evaluate_2014(Matrix<double>* layout) {

@@ -5,7 +5,7 @@ APIs for the Wind Farm Layout Optimization competition
 
 ## Intent
 
-These APIs are for the GECCO 2014 [Wind Farm Layout Optimization Competition](http://www.irit.fr/wind-competition/). Competitors are expected to use these
+These APIs are for the GECCO 2015 [Wind Farm Layout Optimization Competition](http://www.irit.fr/wind-competition/). Competitors are expected to use these
 functions to determine the fitness of the layouts they are optimizing. All APIs
 keep a running count of the number of evaluations made, which will be used in
 the comparison of competing algorithms. We hope competitors will find these

@@ -31,9 +31,13 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 	    double wfr = evaluate_2014(layout);
 	    if (wfr<=0) return Double.MAX_VALUE; 
 	    int n = layout.length;
+	    
+	    double fit = ((ct*n+cs*Math.floor(n/m)*(0.666667+0.333333*Math.exp(-0.00174*n*n))+com*n)/
+		    ((1-Math.pow(1+r, -y))/r)/(8760.0*scenario.wakeFreeEnergy*wfr*n))+0.1/n;
 
-	    return ((ct*n+cs*Math.floor(n/m)*(0.666667+0.333333*Math.exp(-0.00174*n*n))+com*n)/
-		    ((1-Math.pow(1+r, -y))/r)/(8760.0*scenario.wakeFreeEnergy*wfr))+0.1/n;
+	    //	    System.out.println(n+"\t"+wfr+"\t"+fit);
+
+	    return fit;
 	}
 
 	@Override
