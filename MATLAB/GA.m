@@ -40,7 +40,7 @@ for p=1:num_pop
     pops(:,p) = bins;
     layout = grid(logical(bins),:);
     wfle = wfle.evaluate(layout);
-    fits(p) = length(wfle.TurbineFitnesses(wfle.TurbineFitnesses>0.8));
+    fits(p) = -wfle.EnergyCost;
 end
 
 % run the GA
@@ -52,7 +52,7 @@ for i=2:(1000/num_pop)
     for t=1:length(winners)
         indices=indices(randperm(length(indices)));
         tourney=indices(1:tour_size);
-        winners(t)=find(fits==max(fits(tourney)),1);
+        winners(t)=find(fits==min(fits(tourney)),1);
         indices(1:tour_size)=[];
     end 
     
@@ -83,10 +83,10 @@ for i=2:(1000/num_pop)
         bins = pops(:,p);
         layout = grid(logical(bins),:);
         wfle = wfle.evaluate(layout);
-        fits(p)=wfle.EnergyCost;
+        fits(p)=-wfle.EnergyCost;
     end
     
-    disp([i max(fits)]);
+    disp([i min(fits)]);
 end
 
 end
