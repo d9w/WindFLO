@@ -53,7 +53,7 @@ public class GA {
 //             }
 
             fits[p] = -coe; //n_valid;
-            if (fits[p] > maxfit) {
+            if (fits[p] < maxfit) {
                 maxfit = fits[p];
             }
         }

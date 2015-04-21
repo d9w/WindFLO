@@ -59,7 +59,7 @@ void GA::evaluate() {
     }
 
     fits[p] = -coe; //n_valid;
-    if (fits[p] > maxfit) {
+    if (fits[p] < maxfit) {
         maxfit = fits[p];
     }
     delete layout;
