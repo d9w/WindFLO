@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 import scipy
 import xml.etree.ElementTree as ET
 
@@ -25,11 +25,11 @@ class WindScenario:
             if child.tag == 'Parameters':
                 for param in child.getchildren():
                     scenario[param.tag] = eval(param.text)
-        self.cs = numpy.array(scenario['c'])
-        self.ks = numpy.array(scenario['k'])
-        self.omegas = numpy.array(scenario['omega'])
-        thetas = numpy.array(scenario['theta'])
-        self.thetas = numpy.asmatrix(numpy.vstack((thetas, thetas+15)).T)
+        self.cs = np.array(scenario['c'])
+        self.ks = np.array(scenario['k'])
+        self.omegas = np.array(scenario['omega'])
+        thetas = np.array(scenario['theta'])
+        self.thetas = np.vstack((thetas, thetas+15)).T
         self.obstacles = scenario['obstacle']
         self.width = scenario['Width']
         self.height = scenario['Height']
@@ -49,18 +49,36 @@ class WindFarmLayoutEvaluator:
 
     def __init__(self, ws):
         self.ws = ws
+        self._evals = 0
 
-    def evaluate(self, scenario):
-        pass
+    def settings(self, nturb):
+        # set dcos, esin, v1large, v2large, Plarge
+        fac = np.pi/180
+        ntheta = np.size(self.ws.thetas)
+        self._dcos = np.tile(np.reshape(np.tile(np.cos(np.mean(
+            self.ws.thetas*fac,1)), (nturb, 1)).T,
+            ntheta*nturb/2, 1), (nturb, 1))
+        self._esin = np.tile(np.reshape(np.tile(np.sin(np.mean(
+            self.ws.thetas*fac,1)), (nturb, 1)).T,
+            ntheta*nturb/2, 1), (nturb, 1))
+        vints = numpy.arange(3.5, self.ws.vRated+0.5, 0.5)
+        self._v1large = np.tile(np.array(vints[1:-1]), (ntheta, nturb))
+        self._v2large = np.tile(np.array(vints[0:-2]), (ntheta, nturb))
+
+    def evaluate(self, layout):
+        self._evals += 1
+        if not self.check_constraint(layout):
+            return float('infinity')
+        return 0
 
     def check_constraint(self, layout):
         dists = scipy.spatial.distance.pdist(layout)
         if any(dists <= 8*self.ws.R):
             return False
         for obs in self.ws.obstacles:
-            bpositions = numpy.multiply(
+            bpositions = np.multiply(
                     layout <= [obs['xmax'], obs['ymax']],
                     layout >= [obs['xmin'], obs['ymin']])
-            if any(numpy.multiply(bpositions[:,0], bpositions[:,1])):
+            if any(np.multiply(bpositions[:,0], bpositions[:,1])):
                 return False
         return True
