@@ -9,6 +9,9 @@ OBJECTS=$(SOURCES:.cpp=.o)
 main:$(OBJECTS)
 	$(CC) $(CFLAGS) -o eval.o $(OBJECTS) main.cpp $(INCLUDES) $(OPTFLAGS)
 
+evaluate:$(OBJECTS)
+	$(CC) $(CFLAGS) -o evaluate.o $(OBJECTS) evaluate.cpp $(INCLUDES) $(OPTFLAGS)
+
 .cpp.o:
 	$(CC) $(CFLAGS) -c $< -o $@ -w $(INCLUDES) $(OPTFLAGS)
 
