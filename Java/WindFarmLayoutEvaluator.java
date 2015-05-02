@@ -77,6 +77,15 @@ public abstract class WindFarmLayoutEvaluator {
 	public abstract double getWakeFreeRatio();
 
 	/**
+	 * Returns the energy cost of the last layout evaluated.
+	 * A layout must have been evaluated before this method is called.
+	 * This method doesn't increase the number of evaluation counter. 
+	 * @return The energy cost
+	 */
+	public abstract double getEnergyCost();
+
+
+	/**
 	 * Returns the global number of time the evaluation function has been called.
 	 */
 	public static int getNumberOfEvaluation() {

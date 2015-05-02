@@ -14,6 +14,7 @@ void KusiakLayoutEvaluator::initialize(WindScenario& sc) {
   tspe=NULL;
   tpositions=NULL;
   nEvals=0;
+  energyCost = std::numeric_limits<double>::max();
 }
 
 KusiakLayoutEvaluator::~KusiakLayoutEvaluator() {
@@ -33,8 +34,9 @@ double KusiakLayoutEvaluator::evaluate(Matrix<double>* layout) {
   if (wfr <= 0) return std::numeric_limits<double>::max();
   int n = layout->rows;
   
-  return ((ct*n+cs*std::floor(n/m)*(0.666667+0.333333*std::exp(-0.00174*n*n))+com*n)/
+  energyCost = ((ct*n+cs*std::floor(n/m)*(0.666667+0.333333*std::exp(-0.00174*n*n))+com*n)/
 	  ((1.0-std::pow(1.0+r, -y))/r)/(8760.0*scenario.wakeFreeEnergy*wfr*n))+0.1/n;
+  return energyCost;
 }
 
 double KusiakLayoutEvaluator::evaluate_2014(Matrix<double>* layout) {

@@ -43,7 +43,8 @@ public class GA {
                 }
             }
 
-	    double coe = wfle.evaluate(layout);
+	    wfle.evaluate(layout);
+            double coe = wfle.getEnergyCost();
 //            double[] fitnesses = wfle.getTurbineFitnesses();
 //             int n_valid = 0;
 //             for (int i=0; i<fitnesses.length; i++) {

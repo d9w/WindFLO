@@ -83,7 +83,16 @@ class WindFarmLayoutEvaluator {
 	 * @return The global wake free ratio
 	 */
     virtual double getWakeFreeRatio()=0;
-  
+
+ 	/**
+	 * Returns the energy cost of the last layout evaluated.
+	 * A layout must have been evaluated before this method is called.
+	 * This method doesn't increase the number of evaluation counter. 
+	 * @return The energy cost
+	 */
+    virtual double getEnergyCost()=0;
+
+ 
     /**
      * Returns the global number of time the evaluation function has been called.
      */

@@ -47,8 +47,8 @@ void GA::evaluate() {
       }
     }
 
-    double coe = wfle.evaluate(layout);
-    //    cout << coe << endl;
+    wfle.evaluate(layout);
+    double coe = wfle.getEnergyCost();
     Matrix<double>* fitnesses = wfle.getTurbineFitnesses();
 
     int n_valid = 0;

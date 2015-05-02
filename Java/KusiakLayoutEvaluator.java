@@ -7,6 +7,7 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 	protected double tpositions[][];
 	protected double energyCapture;
 	protected double wakeFreeRatio;
+	protected double energyCost;
 	
 	public static final double fac=Math.PI/180;
 
@@ -17,6 +18,7 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 		energyCapture=0;
 		wakeFreeRatio=0;
 		this.scenario=scenario;
+                energyCost=Double.MAX_VALUE;
 	}
 
         @Override
@@ -32,12 +34,12 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 	    if (wfr<=0) return Double.MAX_VALUE; 
 	    int n = layout.length;
 	    
-	    double fit = ((ct*n+cs*Math.floor(n/m)*(0.666667+0.333333*Math.exp(-0.00174*n*n))+com*n)/
+	    energyCost = ((ct*n+cs*Math.floor(n/m)*(0.666667+0.333333*Math.exp(-0.00174*n*n))+com*n)/
 		    ((1-Math.pow(1+r, -y))/r)/(8760.0*scenario.wakeFreeEnergy*wfr*n))+0.1/n;
 
 	    //	    System.out.println(n+"\t"+wfr+"\t"+fit);
 
-	    return fit;
+	    return energyCost;
 	}
 
 	@Override
@@ -193,4 +195,8 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 		return wakeFreeRatio;
 	}
 	
+	@Override
+	public double getEnergyCost() {
+		return energyCost;
+	}
 }

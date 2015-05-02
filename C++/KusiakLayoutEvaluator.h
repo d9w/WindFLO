@@ -20,6 +20,7 @@ class KusiakLayoutEvaluator : public WindFarmLayoutEvaluator {
     virtual Matrix<double>* getTurbineFitnesses();
     virtual double getEnergyOutput() {return energyCapture;};
     virtual double getWakeFreeRatio() {return wakeFreeRatio;};
+    virtual double getEnergyCost() {return energyCost;};
     WindScenario scenario;
 
  protected:
@@ -28,6 +29,7 @@ class KusiakLayoutEvaluator : public WindFarmLayoutEvaluator {
     double energyCapture;
     double wakeFreeEnergy;
     double wakeFreeRatio;
+    double energyCost;
 
     bool checkConstraint();
     double calculateWakeTurbine(int index, double theta);
