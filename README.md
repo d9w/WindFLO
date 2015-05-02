@@ -9,7 +9,7 @@ These APIs are for the GECCO 2015 [Wind Farm Layout Optimization Competition](ht
 functions to determine the fitness of the layouts they are optimizing. All APIs
 keep a running count of the number of evaluations made, which will be used in
 the comparison of competing algorithms. We hope competitors will find these
-APIs useful and clear and will not try to subvert them.
+APIs useful and clear.
 
 ## Basic Interface
 
@@ -26,21 +26,25 @@ same and consists of only two main methods:
 
 * *Evaluate:* This method takes a layout as an n-by-2 matrix, where n is the
   number of turbines, and the columns represent the x and y coordinates of each
-  turbine, respectively. This method returns the wake free ratio in Java and
-  C++, sets all variables, and updates the evaluation count.
+  turbine, respectively. This method returns the energy cost in Java and C++,
+  sets all variables, and updates the evaluation count.
 
 ### Variables
 
 Users have read access to the following variables without increasing the
 evaluation count. All variables are updated by the evaluator class:
 
-* *Wake free ratio:* the fitness of the entire layout. It is a value between 0
-  and 1 representing the energy capture of the field over the theoretical
-  energy capture of the same number of turbines without any inter-turbine wake.
-  In C++ and Java, this value is returned by the evaluate method. If any of the
-  turbines are within 8 radii of each other, given as R in the wind scenarios
-  and here a set value of 38.5m, the layout will be considered invalid and the
-  wake free ratio will be negative.
+* *Energy cost:* The cost of energy in the layout, balancing turbine costs and
+  energy capture. More on this function can be viewed at the [competition
+  site](http://www.irit.fr/wind-competition/). This is the 2015 competition
+  fitness, and it should be minimized.
+
+* *Wake free ratio:* a value between 0 and 1 representing the energy capture of
+  the field over the theoretical energy capture of the same number of turbines
+  without any inter-turbine wake. If any of the turbines are within 8 radii of
+  each other, given as R in the wind scenarios and here a set value of 38.5m,
+  the layout will be considered invalid and the wake free ratio will be
+  negative.
 
 * *Energy output:* the energy capture of the entire field in kWh.
 
@@ -55,16 +59,6 @@ evaluation count. All variables are updated by the evaluator class:
 
 * *Number of evaluations:* the number of times the evaluate method has been
   called so far.
-
-## Submission expectations
-
-We expect an algorithm class or function, depending on language, that takes in
-an evaluator class as its only argument. We have provided an example binary GA
-working on the second track problem, the optimization of the number of turbines
-given a minimum wake free ratio per turbine, to show the expected format of
-submission. Note that we do not expect to receive the contents of the
-corresponding "main" file - we will use a similar script to run submissions and
-provide this only as an example.
 
 ## Running the examples
 
