@@ -24,7 +24,7 @@ public class GA {
     }
 
     private void evaluate() {
-        double maxfit = -Double.MAX_VALUE;
+        double minfit = Double.MAX_VALUE;
         for (int p=0; p<num_pop; p++) {
             int nturbines=0;
             for (int i=0; i<grid.size(); i++) {
@@ -52,12 +52,12 @@ public class GA {
 //                 }
 //             }
 
-            fits[p] = -coe; //n_valid;
-            if (fits[p] < maxfit) {
-                maxfit = fits[p];
+            fits[p] = coe; //n_valid;
+            if (fits[p] < minfit) {
+                minfit = fits[p];
             }
         }
-        System.out.println(maxfit);
+        System.out.println(minfit);
     }
 
     public void run() {
@@ -114,10 +114,10 @@ public class GA {
 
           for (int t=0; t<winners.length; t++) {
               int winner = -1;
-              double winner_fit = -1.0;
+              double winner_fit = Double.MAX_VALUE;
               for (int c=0; c<tour_size; c++) {
                   int competitor = competitors[tour_size*t + c];
-                  if (fits[competitor] > winner_fit) {
+                  if (fits[competitor] < winner_fit) {
                       winner = competitor;
                       winner_fit = fits[winner];
                   }

@@ -28,7 +28,7 @@ GA::~GA() {
 }
 
 void GA::evaluate() {
-  double maxfit = -std::numeric_limits<double>::max();
+  double minfit = std::numeric_limits<double>::max();
   for (int p=0; p<num_pop; p++) {
     int nturbines=0;
     for (int i=0; i<nt; i++) {
@@ -58,15 +58,15 @@ void GA::evaluate() {
       }
     }
 
-    fits[p] = -coe; //n_valid;
-    if (fits[p] < maxfit) {
-        maxfit = fits[p];
+    fits[p] = coe; //n_valid;
+    if (fits[p] < minfit) {
+        minfit = fits[p];
     }
     delete layout;
     delete fitnesses;
   }
 
-  printf("%f\n", maxfit);
+  printf("%f\n", minfit);
 }
 
 void GA::run() {
@@ -166,10 +166,10 @@ void GA::run() {
 
     for (int t=0; t<num_winners; t++) {
       int winner = -1;
-      double winner_fit = -1.0;
+      double winner_fit = std::numeric_limits<double>::max();
       for (int c=0; c<tour_size; c++) {
         int competitor = competitors[tour_size*t + c];
-        if (fits[competitor] > winner_fit) {
+        if (fits[competitor] < winner_fit) {
           winner = competitor;
           winner_fit = fits[winner];
         }

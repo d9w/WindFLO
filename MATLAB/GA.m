@@ -31,7 +31,7 @@ mut_rate = 0.05;    % mutation rate
 cross_rate = 0.40;  % crossover rate - uniform crossover
 
 pops=zeros(max_turbs, num_pop);
-fits=zeros(num_pop,1);
+fits=ones(num_pop,1).*realmax;
 
 % initialize the populations
 for p=1:num_pop
@@ -40,7 +40,7 @@ for p=1:num_pop
     pops(:,p) = bins;
     layout = grid(logical(bins),:);
     wfle = wfle.evaluate(layout);
-    fits(p) = -wfle.EnergyCost;
+    fits(p) = wfle.EnergyCost;
 end
 
 % run the GA
@@ -76,14 +76,14 @@ for i=2:(1000/num_pop)
         children(:,c)=pops(:,winners(c));
     end
     pops = children;
-    fits = zeros(num_pop,1);
+    fits = ones(num_pop,1).*realmax;
     
     % evaluate
     for p=1:num_pop
         bins = pops(:,p);
         layout = grid(logical(bins),:);
         wfle = wfle.evaluate(layout);
-        fits(p)=-wfle.EnergyCost;
+        fits(p)=wfle.EnergyCost;
     end
     
     disp([i min(fits)]);
