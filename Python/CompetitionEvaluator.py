@@ -8,7 +8,7 @@ class WindScenario:
 
     def __init__(self, number):
         self.number = number
-        r = requests.get('http://127.0.0.1:5000/scenarios/%d' % (number))
+        r = requests.get('http://windflo.com/scenarios/%d' % (number))
         results = r.json()
         self.R = results['r']
         self.height = results['height']
@@ -27,18 +27,18 @@ class WindFarmLayoutEvaluator:
         self.energy_cost = 0
         self._evals = 0
 
-        r = requests.post('http://127.0.0.1:5000/runs/',
+        r = requests.post('http://windflo.com/runs/',
                 json=dict(api_token=self.user_token),
                 headers={'Content-Type':'application/json'})
         self.run_token = r.json()['token']
 
     def evaluate(self, layout):
-        r = requests.post('http://127.0.0.1:5000/evaluate/',
+        r = requests.post('http://windflo.com/evaluate/',
                 json=dict(api_token=self.user_token,
                     run=self.run_token,
                     scenario=self.ws.number,
-                    xs=layout[:,0].tolist()[0:10],
-                    ys=layout[:,1].tolist()[0:10]))
+                    xs=layout[:,0].tolist(),
+                    ys=layout[:,1].tolist()))
         results = r.json()
         self.energy_cost = results['energy_cost']
         self.energy_outputs = results['energy_outputs']

@@ -75,7 +75,8 @@ def run_ga(wfle):
 
 if __name__=='__main__':
     ws = WindScenario(0)
-    wfle = WindFarmLayoutEvaluator(ws, 'C43G6AQYLES12FOBHXSHYKVKKGIN4A')
+    # This is the 'Python GA' user token. Substitute your own user token in the evaluator construction
+    wfle = WindFarmLayoutEvaluator(ws, 'AAVPD1LQTRFRT1F6IOQH9VK6IKP3TK')
     run_ga(wfle)
     for i in range(1,5):
         ws = WindScenario(i)
