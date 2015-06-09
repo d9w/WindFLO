@@ -44,7 +44,7 @@ int main(int argc, const char * argv[]) {
       printf("  \"energy_output\": %f,\n", wfle.getEnergyOutput());
       printf("  \"wake_free_ratio\": %f,\n", wfle.getWakeFreeRatio());
       printf("  \"turbine_fitnesses\": [],\n");
-      printf("  \"energy_outputs\": [],\n");
+      printf("  \"energy_outputs\": []\n");
       printf("}");
     } else {
       printf("{\n  \"energy_cost\": %f,\n", coe);
