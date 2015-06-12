@@ -42,18 +42,16 @@ public class GA {
                     l_i++;
                 }
             }
+	    
+	    double coe;
+	    if (wfle.checkConstraint(layout)) {
+		wfle.evaluate(layout);
+		coe = wfle.getEnergyCost();
+	    } else {
+		coe = Double.MAX_VALUE;
+	    }
 
-	    wfle.evaluate(layout);
-            double coe = wfle.getEnergyCost();
-//            double[] fitnesses = wfle.getTurbineFitnesses();
-//             int n_valid = 0;
-//             for (int i=0; i<fitnesses.length; i++) {
-//                 if (fitnesses[i] > 0.80) {
-//                     n_valid++;
-//                 }
-//             }
-
-            fits[p] = coe; //n_valid;
+            fits[p] = coe;
             if (fits[p] < minfit) {
                 minfit = fits[p];
             }
@@ -64,13 +62,13 @@ public class GA {
     public void run() {
       // set up grid
       // centers must be > 8*R apart
-      double interval = 8.001 * wfle.scenario.R;
+	double interval = 8.001 * wfle.getTurbineRadius();
 
-      for (double x=0.0; x<wfle.scenario.width; x+=interval) {
-          for (double y=0.0; y<wfle.scenario.height; y+=interval) {
+	for (double x=0.0; x<wfle.getFarmWidth(); x+=interval) {
+	    for (double y=0.0; y<wfle.getFarmHeight(); y+=interval) {
               boolean valid = true;
-              for (int o=0; o<wfle.scenario.obstacles.length; o++) {
-                  double[] obs = wfle.scenario.obstacles[o];
+              for (int o=0; o<wfle.getObstacles().length; o++) {
+                  double[] obs = wfle.getObstacles()[o];
                   if (x>obs[0] && y>obs[1] && x<obs[2] && y<obs[3]) {
                       valid = false;
                   }
@@ -97,7 +95,7 @@ public class GA {
       evaluate();
 
       // GA
-      for (int i=0; i<(1000/num_pop); i++) {
+      for (int i=0; i<(2000/num_pop); i++) {
 
           // rank populations (tournament)
           int[] winners = new int[num_pop/tour_size];
