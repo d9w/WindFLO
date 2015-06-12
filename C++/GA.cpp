@@ -8,10 +8,10 @@
 #include <time.h>
 
 #include "GA.h"
-#include "WindScenario.h"
-#include "KusiakLayoutEvaluator.h"
+#include "CompetitionScenario.h"
+#include "CompetitionEvaluator.h"
 
-GA::GA(KusiakLayoutEvaluator evaluator) {
+GA::GA(CompetitionEvaluator evaluator) {
   wfle = evaluator;
   num_pop = 20;
   nt = 0;
@@ -146,7 +146,7 @@ void GA::run() {
   evaluate();
 
   // GA
-  for (int i=0; i<(1000/num_pop); i++) {
+  for (int i=1; i<(2000/num_pop); i++) {
 
     // rank populations (tournament)
     int num_winners = num_pop/tour_size;
