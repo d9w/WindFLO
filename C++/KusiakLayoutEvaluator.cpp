@@ -211,7 +211,7 @@ bool KusiakLayoutEvaluator::checkConstraint() {
 	double dist=(tpositions->get(i, 0)-tpositions->get(j, 0))*(tpositions->get(i, 0)-tpositions->get(j, 0))+
 	  (tpositions->get(i, 1)-tpositions->get(j, 1))*(tpositions->get(i, 1)-tpositions->get(j, 1));
 	if (dist<minDist) {
-          printf("dist:\t%f\t<\t%f\t(%d,%d)\n",dist,minDist,i,j);
+          //printf("dist:\t%f\t<\t%f\t(%d,%d)\n",dist,minDist,i,j);
 	  return false;
 	}
       }

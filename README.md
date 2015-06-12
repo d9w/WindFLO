@@ -60,6 +60,15 @@ evaluation count. All variables are updated by the evaluator class:
 * *Number of evaluations:* the number of times the evaluate method has been
   called so far.
 
+## 2015 Leaderboard
+
+A live leaderboard is available at [windflo.com](http://windflo.com/), and the
+competition evaluator classes use this server to evaluate layouts. Examples are
+provided in the GA files, using example user tokens. To compete on the
+leaderboard, use the competition evaluator classes with your own user API
+token, which is available on the [user page](http://windflo.com/user/) after
+[registration](http://windflo.com/register).
+
 ## Running the examples
 
 All examples expect the scenario files in the current directory structure, and
