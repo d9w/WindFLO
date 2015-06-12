@@ -22,6 +22,8 @@ public class CompetitionEvaluator extends WindFarmLayoutEvaluator {
     protected double wakeFreeRatio;
     protected double energyCost;
 
+    //protected String hostname = "http://windflo.com";
+    protected String hostname = "http://52.28.81.122";
     /**
      * Initializes the evaluator with a scenario and a user token. This method generates a new run token.
      * This method doesn't increase the number of evaluations counter.
@@ -39,7 +41,7 @@ public class CompetitionEvaluator extends WindFarmLayoutEvaluator {
 
 	try {
 	    // getting scenario's data
-	    URL targetURL = new URL("http://52.28.81.122/scenarios/"+nScenario);
+	    URL targetURL = new URL(hostname+"/scenarios/"+nScenario);
 	    URLConnection connection = targetURL.openConnection();
 	    BufferedReader in = new BufferedReader(
 				new InputStreamReader(
@@ -68,7 +70,7 @@ public class CompetitionEvaluator extends WindFarmLayoutEvaluator {
 	    //System.out.println(height+" "+width+" "+R);
 
 	    // initializing a run
-	    targetURL = new URL("http://52.28.81.122/runs/");
+	    targetURL = new URL(hostname+"/runs/");
 	    connection = targetURL.openConnection();
 	    connection.setDoOutput(true);
 	    connection.setRequestProperty("Content-Type", "application/json");
@@ -112,7 +114,7 @@ public class CompetitionEvaluator extends WindFarmLayoutEvaluator {
 
 	try {
 	    // getting scenario's data
-	    URL targetURL = new URL("http://52.28.81.122/scenarios/"+nScenario);
+	    URL targetURL = new URL(hostname+"/scenarios/"+nScenario);
 	    URLConnection connection = targetURL.openConnection();
 	    BufferedReader in = new BufferedReader(
 				new InputStreamReader(
@@ -157,7 +159,7 @@ public class CompetitionEvaluator extends WindFarmLayoutEvaluator {
     public double evaluate(double[][] layout) {
 	try {
 	    // initializing a run
-	    URL targetURL = new URL("http://52.28.81.122/evaluate/");
+	    URL targetURL = new URL(hostname+"/evaluate/");
 	    URLConnection connection = targetURL.openConnection();
 	    connection.setDoOutput(true);
 	    connection.setRequestProperty("Content-Type", "application/json");
@@ -316,8 +318,8 @@ public class CompetitionEvaluator extends WindFarmLayoutEvaluator {
 	//	do {
 	    do {
 		double minDist = 8.0*eval.R;
-		int layoutWidth = rng.nextInt((int)(eval.width/minDist)-2)+2;
-		int layoutHeight = rng.nextInt((int)(eval.height/minDist)-2)+2;
+		int layoutWidth = rng.nextInt((int)(eval.width/minDist))+3;
+		int layoutHeight = rng.nextInt((int)(eval.height/minDist))+3;
 		double tileWidth = eval.width/layoutWidth;
 		double tileHeight = eval.height/layoutHeight;
 		layout = new double[layoutWidth*layoutHeight][2];

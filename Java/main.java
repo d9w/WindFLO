@@ -2,8 +2,8 @@ public class main {
 
   public static void main(String argv[]) {
       try {
-	  String userToken = new String("15X67XJ6O6G0G06IKABTHH2GPAYZ7K");
-	  String runToken = new String("KH5LR7YWPAH3GJ5JOHSXZM43XR13HQ");
+	  String userToken = new String("USER TOKEN GOES HERE");
+	  String runToken;
 	  for (int sc = 4; sc < 5; sc++) {
 	      // Create the competition evaluator
 	      CompetitionEvaluator eval = new CompetitionEvaluator();
