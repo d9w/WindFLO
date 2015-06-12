@@ -313,7 +313,7 @@ public class CompetitionEvaluator extends WindFarmLayoutEvaluator {
     public static void main(String args[]) {
 	java.util.Random rng = new java.util.Random(System.currentTimeMillis());
 	CompetitionEvaluator eval = new CompetitionEvaluator();
-	eval.initialize(0, "SDOYFVDN6PQNJMX52W0RDBHQ1PT2KZ", "4T6JN0IYQ1HPO3E4XAZPFVGVM8YGBM");
+	eval.initialize(0, "USER TOKEN GOES HERE", "RUN TOKEN GOES HERE");
 	double layout[][];
 	//	do {
 	    do {
