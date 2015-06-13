@@ -8,10 +8,7 @@ OBJECTS=$(SOURCES:.cpp=.o)
 COMP_SOURCES=jsoncpp.cpp CompetitionScenario.cpp WindFarmLayoutEvaluator.cpp CompetitionEvaluator.cpp
 COMP_OBJECTS=$(COMP_SOURCES:.cpp=.o)
 
-main:$(OBJECTS)
-	$(CC) $(CFLAGS) -o eval.o $(OBJECTS) GA.cpp main.cpp $(INCLUDES) $(OPTFLAGS)
-
-competition:$(COMP_OBJECTS)
+main:$(COMP_OBJECTS)
 	$(CC) $(CFLAGS) -o competition.o $(COMP_OBJECTS) GA.cpp main.cpp $(INCLUDES) $(OPTFLAGS)
 
 evaluate:$(OBJECTS)
@@ -21,4 +18,4 @@ evaluate:$(OBJECTS)
 	$(CC) $(CFLAGS) -c $< -o $@ -w $(INCLUDES) $(OPTFLAGS)
 
 clean:
-	rm $(OBJECTS) $(COMP_OBJECTS) competition.o eval.o evaluate.o 2> /dev/null
+	rm $(OBJECTS) $(COMP_OBJECTS) competition.o evaluate.o 2> /dev/null
