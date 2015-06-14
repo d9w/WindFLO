@@ -43,7 +43,7 @@ CompetitionScenario::CompetitionScenario(int sc) {
     Json::Reader reader;
     bool parsingSuccessful = reader.parse( readBuffer, root, false );
     if ( !parsingSuccessful ) {
-      fprintf(stderr, "json parse failed: %s\n", reader.getFormattedErrorMessages());
+      fprintf(stderr, "json parse failed: %s\n", reader.getFormattedErrorMessages().c_str());
     }
 
     width = root["width"].asDouble();
