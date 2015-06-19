@@ -2,7 +2,7 @@ public class main {
 
   public static void main(String argv[]) {
       try {
-	  String userToken = new String("15X67XJ6O6G0G06IKABTHH2GPAYZ7K");
+	  String userToken = new String("USER TOKEN GOES HERE");
 	  String runToken = null;
 	  System.out.println("Your user token is: "+userToken);
 	  for (int sc = 0; sc < 5; sc++) {
