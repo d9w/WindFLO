@@ -195,10 +195,9 @@ public class CompetitionEvaluator extends WindFarmLayoutEvaluator {
 	    this.nEvals = jsonObj.getInt("evals"); 
 	    JSONArray jsonTurbFit = jsonObj.getJSONArray("turbine_fitnesses");
 	    turbineFitnesses = new double[jsonTurbFit.length()];
-	    /*	    for (int i=0; i<jsonTurbFit.length(); i++) {
+	    for (int i=0; i<jsonTurbFit.length(); i++) {
 		turbineFitnesses[i] = jsonTurbFit.getJSONArray(i).getDouble(0);
-		System.out.println(turbineFitnesses[i]);
-		}*/
+	    }
 	    JSONArray jsonEnergyOutputs = jsonObj.getJSONArray("energy_outputs");
 	    energyOutputs = new double[jsonEnergyOutputs.length()][jsonEnergyOutputs.getJSONArray(0).length()];
 	    for (int i=0; i<jsonEnergyOutputs.length(); i++) {
