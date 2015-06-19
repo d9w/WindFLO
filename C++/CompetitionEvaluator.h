@@ -24,6 +24,7 @@ class CompetitionEvaluator : public WindFarmLayoutEvaluator {
     virtual double getWakeFreeRatio() {return wakeFreeRatio;};
     virtual double getEnergyCost() {return energyCost;};
     CompetitionScenario scenario;
+    bool checkConstraint(Matrix<double>* layout);
 
  protected:
     Matrix<double>* tspe;
@@ -35,8 +36,6 @@ class CompetitionEvaluator : public WindFarmLayoutEvaluator {
     double energyCost;
     string user_token;
     string run_token;
-
-    bool checkConstraint();
 
 };
 

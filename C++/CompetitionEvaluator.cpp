@@ -171,8 +171,33 @@ Matrix<double>* CompetitionEvaluator::getTurbineFitnesses() {
   return res;
 }
 
-bool CompetitionEvaluator::checkConstraint() {
-  // TODO
+bool CompetitionEvaluator::checkConstraint(Matrix<double>* layout) {
+  static const double minDist=64.0*scenario.R*scenario.R;
+  for (int i=0; i<layout->rows; i++) {
+    // check for obstacles
+    for (int j=0; j<scenario.obstacles.rows; j++) {
+      if (layout->get(i, 0) > scenario.obstacles.get(j, 0) &&
+	  layout->get(i, 0) < scenario.obstacles.get(j, 2) &&
+	  layout->get(i, 1) > scenario.obstacles.get(j, 1) &&
+	  layout->get(i, 1) < scenario.obstacles.get(j, 3)) {
+	printf("Obstacle %d [%f, %f, %f, %f] violated by turbine %d (%f, %f)\n", 
+	       j, scenario.obstacles.get(j, 0), scenario.obstacles.get(j, 1),
+	       scenario.obstacles.get(j, 2), scenario.obstacles.get(j, 3), i);
+	return false;
+      }
+    }
+    // checking security distance constraint
+    for (int j=0; j<layout->rows; j++) {
+      if (i!=j) {
+	// calculate the sqared distance between both turbs
+	double dist=(layout->get(i, 0)-layout->get(j, 0))*(layout->get(i, 0)-layout->get(j, 0))+
+	  (layout->get(i, 1)-layout->get(j, 1))*(layout->get(i, 1)-layout->get(j, 1));
+	if (dist<minDist) {
+          //printf("dist:\t%f\t<\t%f\t(%d,%d)\n",dist,minDist,i,j);
+	  return false;
+	}
+      }
+    }
+  }
   return true;
 }
-
