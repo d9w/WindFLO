@@ -40,22 +40,22 @@ int main(int argc, const char * argv[]) {
   if (argc==4) {
     double wfr = wfle.getWakeFreeRatio();
     if (wfr <= 0) {
-      printf("{\n  \"energy_cost\": %f,\n", coe);
-      printf("  \"energy_output\": %f,\n", wfle.getEnergyOutput());
-      printf("  \"wake_free_ratio\": %f,\n", wfle.getWakeFreeRatio());
+      printf("{\n  \"energy_cost\": %.9f,\n", coe);
+      printf("  \"energy_output\": %.9f,\n", wfle.getEnergyOutput());
+      printf("  \"wake_free_ratio\": %.9f,\n", wfle.getWakeFreeRatio());
       printf("  \"turbine_fitnesses\": [],\n");
       printf("  \"energy_outputs\": []\n");
       printf("}");
     } else {
-      printf("{\n  \"energy_cost\": %f,\n", coe);
-      printf("  \"energy_output\": %f,\n", wfle.getEnergyOutput());
-      printf("  \"wake_free_ratio\": %f,\n", wfle.getWakeFreeRatio());
+      printf("{\n  \"energy_cost\": %.9f,\n", coe);
+      printf("  \"energy_output\": %.9f,\n", wfle.getEnergyOutput());
+      printf("  \"wake_free_ratio\": %.9f,\n", wfle.getWakeFreeRatio());
       Matrix<double>* fitnesses = wfle.getTurbineFitnesses();
       printf("  \"turbine_fitnesses\": [");
       for (unsigned int i=0; i<fitnesses->rows; i++) {
         printf("[");
         for (unsigned int j=0; j<fitnesses->cols; j++) {
-          printf("%f", fitnesses->get(i, j));
+          printf("%.9f", fitnesses->get(i, j));
           if (j < fitnesses->cols-1) {
             printf(",");
           }
@@ -71,7 +71,7 @@ int main(int argc, const char * argv[]) {
       for (unsigned int i=0; i<energy->rows; i++) {
         printf("[");
         for (unsigned int j=0; j<energy->cols; j++) {
-          printf("%f", energy->get(i, j));
+          printf("%.9f", energy->get(i, j));
           if (j < energy->cols-1) {
             printf(",");
           }
@@ -85,6 +85,6 @@ int main(int argc, const char * argv[]) {
       printf("}");
     }
   } else {
-    printf("%f\n", coe);
+    printf("%.9f\n", coe);
   }
 }

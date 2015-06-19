@@ -44,7 +44,7 @@ for p=1:num_pop
 end
 
 % run the GA
-for i=2:(1000/num_pop)
+for i=2:(2000/num_pop)
     
     % rank
     winners = zeros(num_pop/tour_size,1);
