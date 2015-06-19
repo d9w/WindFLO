@@ -62,7 +62,7 @@ void CompetitionEvaluator::initialize(CompetitionScenario& sc, const char* token
   Json::Reader reader;
   bool parsingSuccessful = reader.parse( readBuffer, root, false );
   if ( !parsingSuccessful ) {
-    fprintf(stderr, "json parse failed: %s\n", reader.getFormattedErrorMessages());
+    fprintf(stderr, "json parse failed: %s\n", reader.getFormattedErrorMessages().c_str());
   }
 
   run_token = root["token"].asString();
@@ -133,7 +133,7 @@ double CompetitionEvaluator::evaluate(Matrix<double>* layout) {
   Json::Reader reader;
   bool parsingSuccessful = reader.parse( readBuffer, root, false );
   if ( !parsingSuccessful ) {
-    fprintf(stderr, "json parse failed: %s\n", reader.getFormattedErrorMessages());
+    fprintf(stderr, "json parse failed: %s\n", reader.getFormattedErrorMessages().c_str());
   }
 
   tspe=new Matrix<double>(24, tpositions->rows);

@@ -1,7 +1,7 @@
 CC=g++
-CFLAGS =-Wall -std=c++0x -g -lcurl
+CFLAGS =-Wall -std=c++0x -g
 OPTFLAGS=-O2
-INCLUDES=-I$(PWD)
+INCLUDES=-I$(PWD) -lcurl
 
 SOURCES=tinyxml2.cpp WindScenario.cpp WindFarmLayoutEvaluator.cpp KusiakLayoutEvaluator.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
