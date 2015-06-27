@@ -52,7 +52,7 @@ classdef WindFarmLayoutEvaluator
                 r   = 0.03;
                 y   = 20;
                 com = 20000;
-                WFLE.EnergyCost = ((ct*n+cs*floor(n/m)*(0.666667+0.333333*exp(-0.00174*n*n))+com*n)/...
+                WFLE.EnergyCost = (((ct*n+cs*floor(n/m))*(0.666667+0.333333*exp(-0.00174*n*n))+com*n)/...
                     ((1.0-(1.0+r)^(-y))/r)/(8760.0*WFLE.ws.energy*WFLE.wfRatio*n))+0.1/n;
             else
                 WFLE.EnergyCost = intmax;
