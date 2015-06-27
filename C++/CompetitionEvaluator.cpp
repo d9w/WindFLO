@@ -174,6 +174,11 @@ Matrix<double>* CompetitionEvaluator::getTurbineFitnesses() {
 bool CompetitionEvaluator::checkConstraint(Matrix<double>* layout) {
   static const double minDist=64.0*scenario.R*scenario.R;
   for (int i=0; i<layout->rows; i++) {
+    // check boundaries
+    if (tpositions->get(i, 0) < 0 || tpositions->get(i, 0) > scenario.width ||
+        tpositions->get(i, 1) < 0 || tpositions->get(i, 1) > scenario.height) {
+      return false;
+    }
     // check for obstacles
     for (int j=0; j<scenario.obstacles.rows; j++) {
       if (layout->get(i, 0) > scenario.obstacles.get(j, 0) &&

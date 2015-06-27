@@ -223,7 +223,7 @@ public class CompetitionEvaluator extends WindFarmLayoutEvaluator {
 	double minDist = 64.0*R*R; // squared minimum distance
 	for (int i=0; i<layout.length; i++) {
 	    // checking turbine position
-	    if (layout[i][0]!=layout[i][0] || layout[i][1]!=layout[i][1] || layout[i][0]>width || layout[i][1]>height) {
+	    if (layout[i][0]!=layout[i][0] || layout[i][1]!=layout[i][1] || layout[i][0]<0.0 || layout[i][1]<0.0 || layout[i][0]>width || layout[i][1]>height) {
 		System.out.println("Turbine "+i+"("+layout[i][0]+", "+layout[i][1]+") is invalid.");
 		return false;
 	    }

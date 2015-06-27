@@ -192,6 +192,11 @@ double KusiakLayoutEvaluator::calculateBeta(double xi, double yi, double xj, dou
 bool KusiakLayoutEvaluator::checkConstraint() {
   static const double minDist=64.0*scenario.R*scenario.R;
   for (int i=0; i<tpositions->rows; i++) {
+    // check boundaries
+    if (tpositions->get(i, 0) < 0 || tpositions->get(i, 0) > scenario.width ||
+        tpositions->get(i, 1) < 0 || tpositions->get(i, 1) > scenario.height) {
+      return false;
+    }
     // check for obstacles
     for (int j=0; j<scenario.obstacles.rows; j++) {
       if (tpositions->get(i, 0) > scenario.obstacles.get(j, 0) &&

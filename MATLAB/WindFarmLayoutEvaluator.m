@@ -77,13 +77,19 @@ classdef WindFarmLayoutEvaluator
             D=D+RMat;
             %Diagnols are fixed. 
             check=isempty(find(D<=8*R,1));
+            % check boundaries
+            if any([~check, any(any(tpositions<0)),any(tpositions(:,1)>WFLE.ws.width),any(tpositions(:,2)>WFLE.ws.height)])
+                check=0;
+            end
             % check obstacles
-            for i=1:size(tpositions,1)
-                for o=1:size(WFLE.ws.obstacles,1)
-                    if all([tpositions(i,:)>WFLE.ws.obstacles(o,1:2) ...
-                            tpositions(i,:)<WFLE.ws.obstacles(o,3:4)])
-                        check=0;
-                        break;
+            if ~check
+                for i=1:size(tpositions,1)
+                    for o=1:size(WFLE.ws.obstacles,1)
+                        if all([tpositions(i,:)>WFLE.ws.obstacles(o,1:2) ...
+                                tpositions(i,:)<WFLE.ws.obstacles(o,3:4)])
+                            check=0;
+                            break;
+                        end
                     end
                 end
             end
