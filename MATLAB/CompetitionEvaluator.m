@@ -18,7 +18,8 @@ classdef CompetitionEvaluator
         % @param scenario
         function WFLE = CompetitionEvaluator(WindScenario, varargin)
             % initialize wind scenario
-            scenario = webread(sprintf('http://windflo.com/scenarios/%d',WindScenario));
+            options = weboptions('Timeout',20);
+            scenario = webread(sprintf('http://windflo.com/scenarios/%d',WindScenario),options);
             obsize = size(scenario.obstacles, 1);
             obstacles = zeros(obsize,4);
             for i=1:obsize
@@ -45,7 +46,7 @@ classdef CompetitionEvaluator
             if nargin>2
                 WFLE.run_token = varargin{2};
             else
-                options = weboptions('MediaType', 'application/json');
+                options = weboptions('MediaType', 'application/json','Timeout',20);
                 data = struct('api_token',WFLE.api_token);
                 results = webwrite('http://windflo.com/runs/', data, options);
                 WFLE.run_token = results.token;
@@ -59,7 +60,7 @@ classdef CompetitionEvaluator
         % sets the wake free ratio of the layout, double between 0, 1,
         % or -1 is the layout is invalid
         function WFLE = evaluate(WFLE, Layout)
-            options = weboptions('MediaType', 'application/json');
+            options = weboptions('MediaType', 'application/json','Timeout',60);
             data = struct('api_token',WFLE.api_token,'run',WFLE.run_token,'scenario',WFLE.ws.number, 'xs',Layout(:,1), 'ys',Layout(:,2));
             results = webwrite('http://windflo.com/evaluate/', data, options);
             WFLE.EnergyOutput = results.energy_output;
