@@ -146,7 +146,7 @@ double CompetitionEvaluator::evaluate(Matrix<double>* layout) {
   Json::Value turbine_fitnesses = root["turbine_fitnesses"];
   for (int i=0; i < turbine_fitnesses.size(); ++i) {
     Json::Value turbine_fitness = turbine_fitnesses[i];
-    tfitnesses->set(i, 0, 0.1);//turbine_fitness[0].asDouble());
+    tfitnesses->set(i, 0, turbine_fitness[0].asDouble());
   }
   Json::Value energy_outputs = root["energy_outputs"];
   for (int i=0; i < energy_outputs.size(); ++i) {
