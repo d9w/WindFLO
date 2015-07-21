@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WindField><!--Competition scenario 5-->
+  <Angles>
+    <angle c="6.647875" k="2.600871" omega="0.034097" theta="0"/>
+    <angle c="6.326961" k="2.724806" omega="0.037010" theta="15"/>
+    <angle c="6.491835" k="2.477336" omega="0.039738" theta="30"/>
+    <angle c="6.686724" k="2.824146" omega="0.042238" theta="45"/>
+    <angle c="7.166090" k="2.794663" omega="0.044472" theta="60"/>
+    <angle c="6.681965" k="2.472067" omega="0.046403" theta="75"/>
+    <angle c="6.606130" k="2.498984" omega="0.048002" theta="90"/>
+    <angle c="6.419335" k="2.595182" omega="0.049242" theta="105"/>
+    <angle c="6.890298" k="2.878225" omega="0.050105" theta="120"/>
+    <angle c="6.461325" k="2.925737" omega="0.050577" theta="135"/>
+    <angle c="6.618501" k="2.773091" omega="0.050650" theta="150"/>
+    <angle c="6.795529" k="2.448972" omega="0.050323" theta="165"/>
+    <angle c="6.822591" k="2.539632" omega="0.049602" theta="180"/>
+    <angle c="6.719503" k="2.710197" omega="0.048497" theta="195"/>
+    <angle c="6.433657" k="2.877271" omega="0.047027" theta="210"/>
+    <angle c="7.096350" k="2.582617" omega="0.045214" theta="225"/>
+    <angle c="6.475984" k="2.937761" omega="0.043087" theta="240"/>
+    <angle c="6.756877" k="2.761103" omega="0.040679" theta="255"/>
+    <angle c="7.159066" k="2.852672" omega="0.038030" theta="270"/>
+    <angle c="6.763656" k="2.551853" omega="0.035180" theta="285"/>
+    <angle c="6.452667" k="2.481098" omega="0.032174" theta="300"/>
+    <angle c="6.486253" k="2.600267" omega="0.029060" theta="315"/>
+    <angle c="7.099627" k="2.859404" omega="0.025888" theta="330"/>
+    <angle c="6.929672" k="2.510285" omega="0.022706" theta="345"/>
+  </Angles>
+  <Obstacles>
+    <obstacle xmin="1000" ymin="3000" xmax="2000" ymax="4000"/>
+    <obstacle xmin="4000" ymin="3000" xmax="5000" ymax="4000"/>
+    <obstacle xmin="8000" ymin="3000" xmax="9000" ymax="4000"/>
+    <obstacle xmin="11000" ymin="3000" xmax="12000" ymax="4000"/>
+    <obstacle xmin="1500" ymin="11000" xmax="2500" ymax="12000"/>
+    <obstacle xmin="4500" ymin="11000" xmax="5500" ymax="12000"/>
+    <obstacle xmin="8500" ymin="11000" xmax="9500" ymax="12000"/>
+    <obstacle xmin="11500" ymin="11000" xmax="12500" ymax="12000"/>
+  </Obstacles>
+  <Parameters>
+    <Width>15900</Width>
+    <Height>14500</Height>
+    <NTurbines>910</NTurbines>
+    <WakeFreeEnergy>5451.582</WakeFreeEnergy>
+  </Parameters>
+</WindField>

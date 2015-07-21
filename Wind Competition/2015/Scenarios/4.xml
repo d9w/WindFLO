@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WindField><!--Randomly generated wind-->
+  <Angles>
+    <angle c="7.322003" k="2.214872" omega="0.069077" theta="0"/>
+    <angle c="6.425074" k="2.916552" omega="0.071091" theta="15"/>
+    <angle c="8.521567" k="2.501680" omega="0.067154" theta="30"/>
+    <angle c="8.788737" k="2.616100" omega="0.057924" theta="45"/>
+    <angle c="11.116385" k="2.405283" omega="0.044950" theta="60"/>
+    <angle c="9.979434" k="2.360935" omega="0.030406" theta="75"/>
+    <angle c="7.470457" k="2.672429" omega="0.016730" theta="90"/>
+    <angle c="7.934076" k="2.293330" omega="0.052618" theta="105"/>
+    <angle c="10.673122" k="2.682600" omega="0.063713" theta="120"/>
+    <angle c="6.368561" k="0.628793" omega="0.070092" theta="135"/>
+    <angle c="8.430348" k="1.872107" omega="0.070687" theta="150"/>
+    <angle c="3.973638" k="1.795597" omega="0.065397" theta="165"/>
+    <angle c="6.072777" k="2.111877" omega="0.055110" theta="180"/>
+    <angle c="6.892446" k="2.036085" omega="0.041550" theta="195"/>
+    <angle c="6.420859" k="1.972792" omega="0.026990" theta="210"/>
+    <angle c="7.805003" k="2.157391" omega="0.013871" theta="225"/>
+    <angle c="6.441508" k="2.784979" omega="0.004393" theta="240"/>
+    <angle c="9.784241" k="2.633842" omega="0.000143" theta="255"/>
+    <angle c="6.253017" k="2.032636" omega="0.001836" theta="270"/>
+    <angle c="11.152153" k="1.781846" omega="0.009186" theta="285"/>
+    <angle c="9.467714" k="2.213528" omega="0.020962" theta="300"/>
+    <angle c="8.157316" k="2.856115" omega="0.035189" theta="315"/>
+    <angle c="6.907447" k="2.169831" omega="0.049484" theta="330"/>
+    <angle c="7.993213" k="2.347031" omega="0.061448" theta="345"/>
+  </Angles>
+  <Obstacles>
+    <obstacle xmin="3368" ymin="0" xmax="4042" ymax="727"/>
+  </Obstacles>
+  <Parameters>
+     <Width>5390</Width>
+     <Height>6545</Height>
+     <NTurbines>238</NTurbines>
+     <WakeFreeEnergy>7441.038594493</WakeFreeEnergy>
+  </Parameters>
+</WindField>

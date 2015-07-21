@@ -1,6 +1,6 @@
 public class main {
 
-  public static void main(String argv[]) {
+  public static void main(String argv[]) throws Exception {
       try {
 	  String userToken = new String("USER TOKEN GOES HERE");
 	  String runToken = null;

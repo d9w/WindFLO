@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WindField><!--Competition scenario 0-->
+  <Angles>
+    <angle c="10.443094" k="2.824893" omega="0.115109" theta="0"/>
+    <angle c="11.497257" k="4.473140" omega="0.109885" theta="15"/>
+    <angle c="9.936782" k="2.668569" omega="0.103791" theta="30"/>
+    <angle c="11.960420" k="4.041643" omega="0.096939" theta="45"/>
+    <angle c="9.646003" k="3.110461" omega="0.089457" theta="60"/>
+    <angle c="7.850565" k="2.667998" omega="0.081482" theta="75"/>
+    <angle c="10.391076" k="4.131375" omega="0.073164" theta="90"/>
+    <angle c="11.689212" k="4.355522" omega="0.064654" theta="105"/>
+    <angle c="11.306598" k="2.406574" omega="0.056111" theta="120"/>
+    <angle c="10.067243" k="3.788350" omega="0.047693" theta="135"/>
+    <angle c="11.929232" k="3.252150" omega="0.039556" theta="150"/>
+    <angle c="7.213661" k="3.985223" omega="0.031850" theta="165"/>
+    <angle c="9.510614" k="2.969414" omega="0.024717" theta="180"/>
+    <angle c="8.435315" k="3.979477" omega="0.018290" theta="195"/>
+    <angle c="7.209497" k="2.390965" omega="0.012687" theta="210"/>
+    <angle c="11.928993" k="3.563812" omega="0.008012" theta="225"/>
+    <angle c="9.096070" k="3.474557" omega="0.004352" theta="240"/>
+    <angle c="8.920670" k="4.451840" omega="0.001775" theta="255"/>
+    <angle c="11.822872" k="2.016430" omega="0.000327" theta="270"/>
+    <angle c="9.433660" k="2.424834" omega="0.000036" theta="285"/>
+    <angle c="10.287406" k="4.199515" omega="0.000908" theta="300"/>
+    <angle c="8.840926" k="3.289647" omega="0.002925" theta="315"/>
+    <angle c="8.965424" k="3.409203" omega="0.006051" theta="330"/>
+    <angle c="11.006392" k="4.241142" omega="0.010228" theta="345"/>
+  </Angles>
+  <Obstacles>
+    <obstacle xmin="1500" ymin="4000" xmax="1750" ymax="12000"/>
+  </Obstacles>
+  <Parameters>
+    <Width>3500</Width>
+    <Height>16100</Height>
+    <NTurbines>220</NTurbines>
+    <WakeFreeEnergy>11963.514</WakeFreeEnergy>
+  </Parameters>
+</WindField>
