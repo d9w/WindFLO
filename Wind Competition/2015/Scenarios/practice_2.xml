@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WindField><!--Randomly generated wind-->
+  <Angles>
+    <angle c="5.259956" k="2.218469" omega="0.001589" theta="0"/>
+    <angle c="2.986869" k="1.811178" omega="0.000526" theta="15"/>
+    <angle c="6.129905" k="1.928611" omega="0.000035" theta="30"/>
+    <angle c="5.060732" k="2.211150" omega="0.100994" theta="45"/>
+    <angle c="3.557313" k="1.087955" omega="0.096203" theta="60"/>
+    <angle c="4.571547" k="2.533153" omega="0.091090" theta="75"/>
+    <angle c="6.963805" k="2.728152" omega="0.085703" theta="90"/>
+    <angle c="6.311323" k="2.563510" omega="0.080091" theta="105"/>
+    <angle c="4.172867" k="1.827952" omega="0.074308" theta="120"/>
+    <angle c="5.445823" k="1.872753" omega="0.068408" theta="135"/>
+    <angle c="4.924897" k="2.555164" omega="0.062446" theta="150"/>
+    <angle c="5.479133" k="2.786783" omega="0.056477" theta="165"/>
+    <angle c="6.172463" k="2.300769" omega="0.050557" theta="180"/>
+    <angle c="3.543025" k="2.314917" omega="0.044743" theta="195"/>
+    <angle c="5.327421" k="2.936067" omega="0.039087" theta="210"/>
+    <angle c="3.448147" k="1.355187" omega="0.033644" theta="225"/>
+    <angle c="5.568978" k="2.054570" omega="0.028463" theta="240"/>
+    <angle c="2.716682" k="1.570660" omega="0.023594" theta="255"/>
+    <angle c="8.513736" k="2.467892" omega="0.019082" theta="270"/>
+    <angle c="3.428213" k="1.590614" omega="0.014969" theta="285"/>
+    <angle c="1.871175" k="1.488742" omega="0.011294" theta="300"/>
+    <angle c="5.150401" k="2.453613" omega="0.008091" theta="315"/>
+    <angle c="5.891315" k="1.358037" omega="0.005390" theta="330"/>
+    <angle c="3.524813" k="1.634589" omega="0.003216" theta="345"/>
+  </Angles>
+  <Obstacles>
+    <obstacle xmin="0" ymin="3795" xmax="2002" ymax="5060"/>
+    <obstacle xmin="6006" ymin="6325" xmax="8008" ymax="7590"/>
+    <obstacle xmin="8008" ymin="1265" xmax="10010" ymax="2530"/>
+  </Obstacles>
+  <Parameters>
+     <Width>10010</Width>
+     <Height>8855</Height>
+     <NTurbines>598</NTurbines>
+     <WakeFreeEnergy>3164.585986</WakeFreeEnergy>
+  </Parameters>
+</WindField>
