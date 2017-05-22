@@ -1,7 +1,8 @@
 public class main {
 
-  public static void main(String argv[]) throws Exception {
+  public static void main(String argv[]) {
       try {
+<<<<<<< HEAD
 	  String userToken = new String("USER TOKEN GOES HERE");
 	  String runToken = null;
 	  System.out.println("Your user token is: "+userToken);
@@ -21,6 +22,14 @@ public class main {
 	      algorithm.run(); // optional, name of method 'run' provided on submission
 	      // algorithm can also just use constructor
 	  }
+=======
+          WindScenario ws = new WindScenario("../Scenarios/obs_00.xml");
+          KusiakLayoutEvaluator wfle = new KusiakLayoutEvaluator();
+          wfle.initialize(ws);
+          GA algorithm = new GA(wfle);
+          algorithm.run(); // optional, name of method 'run' provided on submission
+          // algorithm can also just use constructor
+>>>>>>> 897de5c181485af419c75254184fbfb2895c778b
       } catch (Exception e) {
           e.printStackTrace();
       }

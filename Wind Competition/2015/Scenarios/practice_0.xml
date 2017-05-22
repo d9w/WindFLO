@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WindField><!--Randomly generated wind-->
+  <Angles>
+    <angle c="9.078858" k="0.733354" omega="0.025075" theta="0"/>
+    <angle c="7.547445" k="1.319215" omega="0.016387" theta="15"/>
+    <angle c="6.696387" k="2.362594" omega="0.009274" theta="30"/>
+    <angle c="6.749340" k="1.206248" omega="0.004038" theta="45"/>
+    <angle c="7.766956" k="1.668699" omega="0.000907" theta="60"/>
+    <angle c="6.813576" k="0.865267" omega="0.000013" theta="75"/>
+    <angle c="9.266788" k="2.118441" omega="0.001397" theta="90"/>
+    <angle c="8.250191" k="2.575919" omega="0.004997" theta="105"/>
+    <angle c="7.687926" k="0.107685" omega="0.010660" theta="120"/>
+    <angle c="7.231963" k="1.814482" omega="0.018142" theta="135"/>
+    <angle c="8.369495" k="1.347733" omega="0.027122" theta="150"/>
+    <angle c="5.868540" k="1.219244" omega="0.037213" theta="165"/>
+    <angle c="7.355246" k="1.196948" omega="0.047983" theta="180"/>
+    <angle c="7.614953" k="2.506665" omega="0.058968" theta="195"/>
+    <angle c="9.224774" k="0.096289" omega="0.069697" theta="210"/>
+    <angle c="8.785098" k="1.452673" omega="0.104259" theta="225"/>
+    <angle c="8.021994" k="2.081807" omega="0.100382" theta="240"/>
+    <angle c="7.778028" k="1.527609" omega="0.094470" theta="255"/>
+    <angle c="10.122735" k="0.653884" omega="0.086775" theta="270"/>
+    <angle c="8.376817" k="1.881423" omega="0.077630" theta="285"/>
+    <angle c="8.345306" k="1.834469" omega="0.067426" theta="300"/>
+    <angle c="8.185709" k="1.955992" omega="0.056602" theta="315"/>
+    <angle c="8.480691" k="1.900314" omega="0.045623" theta="330"/>
+    <angle c="8.710229" k="2.015816" omega="0.034961" theta="345"/>
+  </Angles>
+  <Obstacles>
+    <obstacle xmin="0" ymin="2310" xmax="1232" ymax="3080"/>
+    <obstacle xmin="2464" ymin="2310" xmax="3696" ymax="3080"/>
+  </Obstacles>
+  <Parameters>
+     <Width>6160</Width>
+     <Height>5390</Height>
+     <NTurbines>224</NTurbines>
+     <WakeFreeEnergy>8041.584365</WakeFreeEnergy>
+  </Parameters>
+</WindField>

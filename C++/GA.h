@@ -1,13 +1,13 @@
 #ifndef __GA_H__
 #define __GA_H__
 
-#include "CompetitionScenario.h"
-#include "CompetitionEvaluator.h"
+#include "WindScenario.h"
+#include "KusiakLayoutEvaluator.h"
 #include "Matrix.hpp"
 
 class GA {
   public:
-    CompetitionEvaluator wfle;
+    KusiakLayoutEvaluator wfle;
     Matrix<int>* pops;
     int num_pop;
     double* fits;
@@ -17,7 +17,7 @@ class GA {
     double cross_rate;
     Matrix<double>* grid;
 
-    GA(CompetitionEvaluator evaluator);
+    GA(KusiakLayoutEvaluator evaluator);
     ~GA();
     void run();
 

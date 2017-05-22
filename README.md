@@ -5,11 +5,10 @@ APIs for the Wind Farm Layout Optimization competition
 
 ## Intent
 
-These APIs are for the GECCO 2015 [Wind Farm Layout Optimization Competition](http://www.irit.fr/wind-competition/). Competitors are expected to use these
-functions to determine the fitness of the layouts they are optimizing. All APIs
-keep a running count of the number of evaluations made, which will be used in
-the comparison of competing algorithms. We hope competitors will find these
-APIs useful and clear.
+These APIs were used in the 2014 and 2015 [Wind Farm Layout Optimization
+Competition](http://www.irit.fr/wind-competition/), and are open to the public
+for the advancement of the wind flow layout optimization benchmarking problem
+and the application of this problem.
 
 ## Basic Interface
 
@@ -60,15 +59,6 @@ evaluation count. All variables are updated by the evaluator class:
 * *Number of evaluations:* the number of times the evaluate method has been
   called so far.
 
-## 2015 Leaderboard
-
-A live leaderboard is available at [windflo.com](http://windflo.com/), and the
-competition evaluator classes use this server to evaluate layouts. Examples are
-provided in the GA files, using example user tokens. To compete on the
-leaderboard, use the competition evaluator classes with your own user API
-token, which is available on the [user page](http://windflo.com/user/) after
-[registration](http://windflo.com/register).
-
 ## Running the examples
 
 All examples expect the scenario files in the current directory structure, and
@@ -90,7 +80,7 @@ directory):
 ```Bash
 $ cd c++
 $ make
-$ ./eval.o
+$ ./eval.o ../Scenarios/00.xml
 ```
 
 ## Java
@@ -117,7 +107,8 @@ executed in the MATLAB environment if the current directory is
 
 ## Questions, comments, bugs
 
-We are continuously working on the competition software as we work on the
-automated submission and leaderboard system. If you would like to contact us
-concerning the APIs, please email us. Our emails can be found on the
-[competition site](http://www.irit.fr/wind-competition/).
+Information about the WindFLO competition past results and future news can be
+found at the [competition site](http://www.irit.fr/wind-competition/), as well
+as the competition organizer contact information.
+
+Bugs and issues concerning the API should be opened here in Github.
