@@ -55,8 +55,8 @@ public class GA {
             if (fits[p] < minfit) {
                 minfit = fits[p];
             }
+	    System.out.println(wfle.getNumberOfEvaluation() + "\t" + fits[p] + "\t" + main_offline.nSc);
         }
-        System.out.println(minfit);
     }
 
     public void run() {

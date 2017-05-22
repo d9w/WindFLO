@@ -9,7 +9,7 @@ public class KusiakLayoutEvaluator extends WindFarmLayoutEvaluator {
 	protected double wakeFreeRatio;
 	protected double energyCost;
 
-    protected WindScenario scenario;
+	protected WindScenario scenario;
 	
 	public static final double fac=Math.PI/180;
 
